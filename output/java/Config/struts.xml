@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+  <package name="purchase" extends="json-default">
+
+    <action name="ffb010t" class="com.ysusoft.Action.purchase.Ffb010tAction">
+      <result type="json">
+        <param name="root">result</param>
+        <param name="noCache">true</param>
+        <param name="ignoreHierarchy">false</param>
+        <param name="contentType">text/html</param>
+      </result>
+    </action>
+
+    <action name="ffb011t" class="com.ysusoft.Action.purchase.Ffb011tAction">
+      <result type="json">
+        <param name="root">result</param>
+        <param name="noCache">true</param>
+        <param name="ignoreHierarchy">false</param>
+        <param name="contentType">text/html</param>
+      </result>
+    </action>
+
+    <action name="ffb012t" class="com.ysusoft.Action.purchase.Ffb012tAction">
+      <result type="json">
+        <param name="root">result</param>
+        <param name="noCache">true</param>
+        <param name="ignoreHierarchy">false</param>
+        <param name="contentType">text/html</param>
+      </result>
+    </action>
+
+    <action name="ffb020t" class="com.ysusoft.Action.purchase.Ffb020tAction">
+      <result type="json">
+        <param name="root">result</param>
+        <param name="noCache">true</param>
+        <param name="ignoreHierarchy">false</param>
+        <param name="contentType">text/html</param>
+      </result>
+    </action>
+
+    <action name="ffb030t" class="com.ysusoft.Action.purchase.Ffb030tAction">
+      <result type="json">
+        <param name="root">result</param>
+        <param name="noCache">true</param>
+        <param name="ignoreHierarchy">false</param>
+        <param name="contentType">text/html</param>
+      </result>
+    </action>
+
+    <action name="ffb040t" class="com.ysusoft.Action.purchase.Ffb040tAction">
+      <result type="json">
+        <param name="root">result</param>
+        <param name="noCache">true</param>
+        <param name="ignoreHierarchy">false</param>
+        <param name="contentType">text/html</param>
+      </result>
+    </action>
+
+    <action name="ffb050t" class="com.ysusoft.Action.purchase.Ffb050tAction">
+      <result type="json">
+        <param name="root">result</param>
+        <param name="noCache">true</param>
+        <param name="ignoreHierarchy">false</param>
+        <param name="contentType">text/html</param>
+      </result>
+    </action>
+
+    <action name="ffb060t" class="com.ysusoft.Action.purchase.Ffb060tAction">
+      <result type="json">
+        <param name="root">result</param>
+        <param name="noCache">true</param>
+        <param name="ignoreHierarchy">false</param>
+        <param name="contentType">text/html</param>
+      </result>
+    </action>
+
+    <action name="ffb070t" class="com.ysusoft.Action.purchase.Ffb070tAction">
+      <result type="json">
+        <param name="root">result</param>
+        <param name="noCache">true</param>
+        <param name="ignoreHierarchy">false</param>
+        <param name="contentType">text/html</param>
+      </result>
+    </action>
+
+    <action name="ffb011v" class="com.ysusoft.Action.purchase.Ffb011vAction">
+      <result type="json">
+        <param name="root">result</param>
+        <param name="noCache">true</param>
+        <param name="ignoreHierarchy">false</param>
+        <param name="contentType">text/html</param>
+      </result>
+    </action>
+
+    <action name="ffb020av" class="com.ysusoft.Action.purchase.Ffb020avAction">
+      <result type="json">
+        <param name="root">result</param>
+        <param name="noCache">true</param>
+        <param name="ignoreHierarchy">false</param>
+        <param name="contentType">text/html</param>
+      </result>
+    </action>
+
+    <action name="ffb060av" class="com.ysusoft.Action.purchase.Ffb060avAction">
+      <result type="json">
+        <param name="root">result</param>
+        <param name="noCache">true</param>
+        <param name="ignoreHierarchy">false</param>
+        <param name="contentType">text/html</param>
+      </result>
+    </action>
+ 
+  </package>
+</struts>
+

@@ -1,0 +1,21 @@
+package com.ysusoft.ui.purchase;
+
+import com.ysusoft.ui.codehelper.HtmlTag;
+import com.ysusoft.ui.FieldCodes;
+
+public class <%= entity.class_name %>Ui extends <%= entity.class_name %>UiAuto {
+  <%entity.properties.each_with_index(){|property, index|
+    upcase_porperty = property.name.gsub(/^\w/) {|s| s.upcase }
+  %>// <%= upcase_porperty%>
+  /*public HtmlTag create<%= upcase_porperty%>Input(){
+    return <%= CodeHelper.form_field_input property%>;
+  }*/
+  /*public HtmlTag create<%= upcase_porperty%>QueryInput(){
+    return <%= CodeHelper.query_field_input property%>;
+  }*/
+  /*public String create<%= upcase_porperty%>DataDridColumn(){
+    return <%= CodeHelper.datagrid_column property%>.toString();
+  }*/
+  
+  <%}%>
+}

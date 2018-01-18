@@ -1,0 +1,41 @@
+<%
+downcase_class_name = entity.class_name.gsub(/^\w/){|s| s.downcase}
+%><%%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%%@ page language="java" import="org.springframework.web.context.support.WebApplicationContextUtils"%>
+<%%@ page language="java" import="org.springframework.context.ApplicationContext"%>
+<%%@ page language="java" import="com.ysusoft.Util.*"%>
+<%%@ page language="java" import="com.ysusoft.ui.purchase.<%= entity.class_name %>Ui"%>
+<%% 
+// parameters define
+String targetDataGridId = "dg<%= entity.class_name %>";
+String displayQueryFields = request.getParameter("displayQueryFields");
+String hiddenQueryFields = request.getParameter("hiddenQueryFields");
+
+// parameters initialize
+if (request.getParameter("targetDataGridId") != null) targetDataGridId = request.getParameter("targetDataGridId");
+
+// varibles
+ApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
+<%= entity.class_name %>Ui ui = (<%= entity.class_name %>Ui) ctx.getBean("<%= downcase_class_name%>Ui");
+%>
+<script type="text/javascript">
+function query<%= entity.class_name %>Entity(){
+  var queryParams = create<%= entity.class_name %>QueryParams();
+  $('#<%%= targetDataGridId%>').datagrid('reload', queryParams);
+}
+function create<%= entity.class_name %>QueryParams(){
+  return createQueryParams("<%= downcase_class_name%>_query");
+}
+function reset<%= entity.class_name %>Query(){
+  resetQueryInputs("<%= downcase_class_name%>_query");
+  query<%= entity.class_name %>Entity();
+}
+</script>
+<div id="<%= downcase_class_name%>_query" class="query">
+  <%%= displayQueryFields!=null? ui.createQueryInputs(displayQueryFields, true) : "" %>
+  <%%= hiddenQueryFields!=null? ui.createQueryInputs(hiddenQueryFields, false) : "" %>
+  <div>
+    <a id="icon-search" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" >≤È—Ø</a>
+    <a id="icon-cancel" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" >÷ÿ÷√</a>
+  </div>
+</div>

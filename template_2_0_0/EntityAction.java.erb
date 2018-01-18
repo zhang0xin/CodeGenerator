@@ -1,0 +1,55 @@
+<%
+	downcase_class_name = entity.class_name.gsub(/^\w/){|s| s.downcase}
+%>package com.ysusoft.Action.<%= biz_name %>;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Date;
+import com.ysusoft.Action.BaseAction;
+import com.ysusoft.DAO.<%= entity.class_name %>DAO;
+import com.ysusoft.POJO.<%= entity.class_name %>;
+import com.ysusoft.service.<%= biz_name %>.<%= entity.class_name %>Service;
+
+public class <%= entity.class_name %>Action extends BaseAction<<%= entity.class_name %>Service, <%= entity.class_name %>DAO, <%= entity.class_name %>, <%= entity.class_name %>Params>{
+	@Autowired
+	private <%= entity.class_name %>Service <%= downcase_class_name %>Service;
+	private <%= entity.class_name %>Params query = new <%= entity.class_name %>Params();
+	private <%= entity.class_name %> entity;
+	
+	@Override
+	public <%= entity.class_name %>Service getDefaultService(){
+		return get<%= entity.class_name %>Service();
+	}
+	@Override
+	public <%= entity.class_name %> getDefaultEntity(){
+		return getEntity();
+	}
+	@Override
+	public <%= entity.class_name %>Params getDefaultParams(){
+		return getQuery();
+	}
+	
+	public <%= entity.class_name %>Service get<%= entity.class_name %>Service() {
+		return <%= downcase_class_name %>Service;
+	}
+
+	public void set<%= entity.class_name %>Service(<%= entity.class_name %>Service <%= downcase_class_name %>Service) {
+		this.<%= downcase_class_name %>Service = <%= downcase_class_name %>Service;
+	}
+
+	public <%= entity.class_name %>Params getQuery() {
+		return query;
+	}
+
+	public void setQuery(<%= entity.class_name %>Params query) {
+		this.query = query;
+	}
+
+	public <%= entity.class_name %> getEntity() {
+		return entity;
+	}
+
+	public void setEntity(<%= entity.class_name %> entity) {
+		this.entity = entity;
+	}
+}

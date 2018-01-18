@@ -1,0 +1,103 @@
+key	name	type	type_length	comment	long_comment	category	range	range_code	reference	details	tags
+table	FFB010T			采购资源							
+id	f0	string	36	主键							
+field	contract number	string	36	合同号		合同					
+field	ship batch id	string	36	船运批次		船运批次					
+field	purchase batch id	string	36	采购批次		采购申请					
+field	trade type	string	10	贸易类型		采购申请	长期协议矿,远期现货矿,即期现货矿				
+field	ore area	string	10	矿石产区		采购申请	澳洲,巴西,非洲,亚洲,其他				
+field	material category	string	30	资源种类		采购申请					
+field	material id	string	36	物料名称		采购申请					
+field	TFe 	string	20	TFe 		采购申请					
+field	H2O	string	20	H2O		采购申请					
+field	SiO2	string	20	SiO2		采购申请					
+field	Al2O3	string	20	Al2O3		采购申请					
+field	SiO2 Al2O3	string	20	SiO2+Al2O3		采购申请					
+field	P	string	20	P		采购申请					
+field	S	string	20	S		采购申请					
+field	other	string	200	粒度		采购申请					
+field	price	string	50	定价模式		采购申请					
+field	purchase quantity	number	20,5	采购量		采购申请					
+field	unit	string	10	单位		采购申请	干吨,湿吨				
+field	port load date	date		装港日期		采购申请					
+field	port load name	string	30	装港名称		采购申请		2006			
+field	port arrived date	date		到港日期		采购申请					
+field	port arrived name	string	30	到港名称		采购申请					
+field	buyer	string	30	买方（最终用户）		采购申请					
+field	seller	string	30	卖方（矿山/供应商）		采购申请					
+field	resource location	string	30	资源位置		采购申请					
+field	audit state	string	10	审批状态		采购申请	未提交,提交,通过,未通过				
+field	visible department	string	30	可见部门		采购申请					
+field	bl amount	number	20,5	B/L量		提单					
+field	bl date	date		B/L日		提单					
+field	settlement price	number	20,4	结算吨度价		结算货款					has_unit
+field	settlement price unit	string	10	结算吨度价币种		结算货款		2003			
+field	ship settlement price	number	20,2	单船结算价		结算货款					has_unit
+field	ship settlement price unit	string	10	单船结算价币种		结算货款		2003			
+field	final fe	number	20,4	结算Fe		结算货款					
+field	final h2o	number	20,4	结算H2O		结算货款					
+field	settlement start date	date		结算开始日		结算货款					
+field	settlement quantity	number	20,5	结算重量		结算货款					
+field	lc first fee	number	20,2	LC或托收首款（含息）		结算货款					has_unit
+field	lc first fee unit	string	10	LC或托收首款（含息）币种		结算货款		2003			
+field	company first rate	number	20,5	首款汇率		结算货款					
+field	company first rmb	number	20,2	首款人民币		结算货款					
+field	interest rate	number	20,5	信用证利率		结算货款					
+field	future accrual	number	20,5	远期利息		结算货款					has_unit
+field	future accrual unit	string	10	远期利息币种		结算货款		2003			
+field	first pay date	date		首款付款日		结算货款					
+field	first issue date	date		首款到单日		结算货款					
+field	first dry quantity	number	20,5	首款干吨		结算货款					
+field	company first fee	number	20,2	矿山公司首款金额		结算货款					has_unit
+field	company first fee unit	string	10	矿山公司首款金额币种		结算货款		2003			
+field	transport equalize	number	20,2	运费补偿		结算货款					has_unit
+field	transport equalize unit	string	10	运费补偿币种		结算货款		2003			
+field	final transport fee	number	20,2	最终运费		结算货款					has_unit
+field	final transport fee unit	string	10	最终运费币种		结算货款		2003			
+field	second pay	number	20,2	二次货款额		结算货款					has_unit
+field	second pay unit	string	10	二次货款额币种		结算货款		2003			
+field	second pay rate	number	20,5	二次货款汇率		结算货款					
+field	second pay rmb	number	20,2	二次货款额人民币		结算货款					
+field	second pay date	date		二次货款付款日		结算货款					
+field	settlement tail fee	number	20,2	结算尾款（含滞期速遣费）		结算货款					has_unit
+field	settlement tail fee unit	string	10	结算尾款（含滞期速遣费）币种		结算货款		2003			
+field	settlement tail rate	number	20,5	尾款汇率		结算货款					
+field	settlement tail rmb	number	20,2	尾款人民币		结算货款					
+field	tail fee date	date		尾款付款日		结算货款					
+field	gauge discount	number	20,2	水尺优惠		结算货款					has_unit
+field	gauge discount unit	string	10	水尺优惠币种		结算货款		2003			
+field	settlement assessment cycle	number	20,5	结算考核周期		结算货款					
+field	drain equalize	number	20,2	FOB排水运费补偿		结算货款					has_unit
+field	drain equalize unit	string	10	FOB排水运费补偿币种		结算货款		2003			
+field	ocean freight price	number	20,5	海运费单价		结算货款					
+field	remarks	string	300	备注		结算货款					
+field	ffb010t020p archived	string	10	归档		结算货款	已归档,未归档				
+field	insurance company	string	30	保险公司		保险					
+field	insurance fee	number	20,2	保险费		保险					has_unit
+field	insurance fee unit	string	10	保险费币种		保险		2003			
+field	ffb010t030p archived	string	10	归档		保险	已归档,未归档				
+field	lc number	string	30	L/C号码		信用证（财）					
+field	documentary bills interest	number	20,2	押汇利息		信用证（财）					
+field	documentary bills hike	number	20,2	押汇加息		信用证（财）					
+field	capital occupation fee	number	20,2	资金占用费		信用证（财）					
+field	opening charge	number	20,2	开证费		信用证（财）					
+field	accepting charge	number	20,2	承兑费		信用证（财）					
+field	customs guarantee fee	number	20,2	关税保函费		信用证（财）					
+field	agent service fee	number	20,2	代理服务费		信用证（财）					
+field	extension period	digits	10	展期期限/天		信用证（财）					
+field	extension date	date		展期到期日		信用证（财）					
+field	extension amount	number	20,5	展期金额		信用证（财）					
+field	extension rate	number	20,5	展期利率		信用证（财）					
+field	extension interest	number	20,5	展期利息		信用证（财）					
+field	extension execute unit	string	30	展期执行单位		信用证（财）					
+field	issue price	number	20,4	开证单价		信用证（商）					has_unit
+field	issue price unit	string	10	开证单价币种		信用证（商）		2003			
+field	dry ton price	string	50	吨度价		信用证（商）					
+field	credit tfe	string	50	TFe		信用证（商）					
+field	pob price	string	50	FOB价		信用证（商）					
+field	cfr price	string	50	CFR价		信用证（商）					
+field	create by	string	30	创建人							
+field	create date	datetime		创建日期							
+field	update by	string	30	更新人							
+field	update date	datetime		更新日期							
+field	archived	string	10	归档			已归档,未归档				

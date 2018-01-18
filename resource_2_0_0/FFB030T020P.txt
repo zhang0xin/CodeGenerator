@@ -1,0 +1,9 @@
+key	name	comment	query	table	edit
+page	FFB030T020P	–∂∏€÷Õ∆⁄ÀŸ«≤			
+base_page	FFB030T				
+field	unload port id		TRUE	TRUE	
+field	unload delay days		TRUE	TRUE	TRUE
+field	unload delay fee		TRUE	TRUE	TRUE
+field	unload transport adjust		TRUE	TRUE	TRUE
+field	speed delay fee		TRUE	TRUE	TRUE
+field	ship agent		TRUE	TRUE	TRUE

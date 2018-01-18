@@ -1,0 +1,29 @@
+<%
+
+%>package com.ysusoft.Action.<%= biz_name %>;
+
+import com.ysusoft.Action.BaseQueryParams;
+import com.ysusoft.Action.StringQueryParameter;
+import com.ysusoft.Action.DateQueryParameter;
+import com.ysusoft.Action.LongQueryParameter;
+import com.ysusoft.Action.DoubleQueryParameter;
+
+public class <%= entity.class_name %>ParamsAuto extends BaseQueryParams {
+  <% entity.properties.each(){|property|
+    param_type = property.java_type.scan(/\w+$/)[0]
+  %>
+  private <%= param_type%>QueryParameter <%= property.name %> = new <%= param_type%>QueryParameter();
+  <%}%>
+  
+  <% entity.properties.each(){|property| 
+    upcase_property_name = property.name.gsub(/^\w/){|s| s.upcase}
+    param_type = property.java_type.scan(/\w+$/)[0]
+  %>
+  public <%= param_type%>QueryParameter get<%= upcase_property_name %>() {
+    return <%= property.name %>;
+  }
+  public void set<%= upcase_property_name %>(<%= param_type%>QueryParameter <%= property.name %>) {
+    this.<%= property.name %> = <%= property.name %>;
+  }
+  <%}%>
+}

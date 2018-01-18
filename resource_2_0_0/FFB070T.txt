@@ -1,0 +1,38 @@
+key	name	type	type_length	comment	long_comment	category	range	range_code	reference	details	tags
+table	FFB070T			信用证							
+id	f0	string	36	主键							
+field	lc number	string	30	L/C号码						FFB010T	
+field	ship batch id	string	36	船运批次							
+field	issue property	string	20	开证性质				5001			
+field	issue bank	string	60	开证行				5003			
+field	beneficiary 	string	20	受益人				5004			
+field	issue amount	number	"20,2"	开证金额							has_unit
+field	issue amount unit	string	10	开证金额币种				2003			
+field	issue price	number	"20,4"	开证单价							has_unit
+field	issue price unit	string	10	开证单价币种				2003			
+field	issue date	date		开证日期							
+field	dry ton price	string	50	吨度价							
+field	tfe	string	50	TFe							
+field	pob price	string	50	FOB价							
+field	cfr price	string	50	CFR价							
+field	ton sea fee equalize	number	"20,2"	吨矿海运费							has_unit
+field	ton sea fee equalize unit	string	10	吨矿海运费币种				2003			
+field	valuation month	string	10	计价月份							
+field	see fee equalize	number	"20,2"	海运费补偿							has_unit
+field	see fee equalize unit	string	10	海运费补偿币种				2003			
+field	commission	number	"20,2"	佣金							has_unit
+field	commission unit	string	10	佣金币种				2003			
+field	issue ton	number	"20,5"	开证吨数							
+field	expire days	date		信用证效期日							
+field	extension period	digits	10	展期期限/天							
+field	extension date	date		展期到期日							
+field	extension amount	number	"20,5"	展期金额							
+field	extension rate	number	"20,5"	展期利率							
+field	extension interest	number	"20,5"	展期利息							
+field	extension execute unit	string	30	展期执行单位							
+field	remark	string	300	备注							
+field	create by	string	30	创建人							
+field	create date	datetime		创建日期							
+field	update by	string	30	更新人							
+field	update date	datetime		更新日期							
+field	archived	string	10	归档			"已归档,未归档"				

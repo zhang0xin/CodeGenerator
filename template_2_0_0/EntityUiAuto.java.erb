@@ -1,0 +1,65 @@
+package com.ysusoft.ui.purchase;
+
+import com.ysusoft.ui.codehelper.HtmlTag;
+import com.ysusoft.ui.codehelper.JsCode;
+import com.ysusoft.ui.codehelper.JsType;
+import com.ysusoft.ui.FieldCodes;
+import com.ysusoft.ui.EntityUiBase;
+<%
+downcase_class_name = entity.class_name.gsub(/^\w/){|s| s.downcase}
+%>
+public class <%= entity.class_name %>UiAuto extends EntityUiBase {
+  <%entity.properties.each_with_index(){|property, index|%>
+  protected FieldCodes <%= property.name%> = new FieldCodes("<%= property.name%>", "<%= property.comment%>", "<%= downcase_class_name %>", "entity", "query");<%
+  if property.tags.include? 'has_unit' then
+  %>
+  protected FieldCodes <%= property.name%>WithUnit = new FieldCodes("<%= property.name%>", "<%= property.comment%>", "<%= downcase_class_name %>", "entity", "query");<%
+  end
+  }%>
+  
+  public <%= entity.class_name %>UiAuto(){
+  }
+
+  <%entity.properties.each_with_index(){|property, index|
+    upcase_porperty = property.name.gsub(/^\w/) {|s| s.upcase }
+  %>// <%= property.comment %>
+  public FieldCodes <%= property.name%>() {
+    if (<%= property.name%>.getInput() == null) <%= property.name%>.setInput(create<%= upcase_porperty%>Input());
+    if (<%= property.name%>.getQueryInput() == null) <%= property.name%>.setQueryInput(create<%= upcase_porperty%>QueryInput());
+    if (<%= property.name%>.getDataGridColumn() == null) <%= property.name%>.setDataGridColumn(create<%= upcase_porperty%>DataGridColumn());
+    return <%= property.name%>;
+  }
+  public HtmlTag create<%= upcase_porperty%>Input(){
+    return <%= CodeHelper.form_field_input property%>;
+  }
+  public HtmlTag create<%= upcase_porperty%>QueryInput(){
+    return <%= CodeHelper.query_field_input property%>;
+  }
+  public JsType create<%= upcase_porperty%>DataGridColumn(){
+    return <%= CodeHelper.datagrid_column property%>;
+  }
+  <%
+  if property.tags.include? 'has_unit' then
+  uintProperty = entity.properties.select(){|prop| prop.name == property.name+"Unit"}.first
+  %>
+  // <%= property.comment %>£¨´øµ¥Î»£©
+  public FieldCodes <%= property.name%>WithUnit() {
+    if (<%= property.name%>WithUnit.getInput() == null) <%= property.name%>WithUnit.setInput(create<%= upcase_porperty%>WithUnitInput());
+    if (<%= property.name%>WithUnit.getQueryInput() == null) <%= property.name%>WithUnit.setQueryInput(create<%= upcase_porperty%>WithUnitQueryInput());
+    if (<%= property.name%>WithUnit.getDataGridColumn() == null) <%= property.name%>WithUnit.setDataGridColumn(create<%= upcase_porperty%>WithUnitDataGridColumn());
+    return <%= property.name%>WithUnit;
+  }
+  public HtmlTag create<%= upcase_porperty%>WithUnitInput(){
+    return <%= property.name%>WithUnit.quantityWithUnitInput(<%=property.get_precision_length%>, "<%=uintProperty.range_code%>"); 
+  }
+  public HtmlTag create<%= upcase_porperty%>WithUnitQueryInput(){
+    return <%= CodeHelper.query_field_input property%>;
+  }
+  public JsType create<%= upcase_porperty%>WithUnitDataGridColumn(){
+    return <%= CodeHelper.datagrid_column property%>;
+  }
+  <%
+  end
+  %>
+  <%}%>
+}

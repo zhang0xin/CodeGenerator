@@ -1,0 +1,25 @@
+<%
+    downcase_page_name = page.page_name.gsub(/^\w/){|s| s.downcase}
+%>package com.ysusoft.Action.purchase;
+
+public class <%= page.page_name %>Action extends <%= page.class_name %>Action {
+	@Override
+	public void archiveOnIds(){
+	    for(String id : ids){
+	      setProperty(id, "<%= downcase_page_name %>Archived", "已归档");
+	    }
+	    setResult(true, "成功");
+	  }
+	@Override
+	public void activeOnIds(){
+	  for(String id : ids){
+	    setProperty(id, "<%= downcase_page_name %>Archived", "未归档");
+	  }
+	  setResult(true, "成功");
+	}
+	@Override
+	public boolean IsArchived(){
+		if("已归档".equals(getDefaultEntity().get<%= page.page_name %>Archived())) return true;
+		else return false;
+	}
+}

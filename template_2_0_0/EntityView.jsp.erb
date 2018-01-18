@@ -1,0 +1,11 @@
+<%
+  downcase_class_name = entity.class_name.gsub(/^\w/){|s| s.downcase}
+  prefix = downcase_class_name + "_"
+%><%%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+
+<div id="view_<%= downcase_class_name%>" comment="<%= entity.class_comment%>" class="view">
+  <%
+  entity.properties.each(){|property|
+  %><%= CodeHelper.genernate_view_item(property, prefix) %>
+  <%}%>
+</div>

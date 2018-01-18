@@ -1,0 +1,40 @@
+key	name	type	type_length	comment	long_comment	range	ref_table	tags
+view	FFB011V			采购申请				
+id	f0	string	36	主键				
+field	biz id	string	36	业务id				
+field	where id	string	100	审批条件id				
+field	prev state	string	10	上级审批状态				
+field	next order	string	10	下级审批序号	1通过、0未通过			
+field	purchase batch id	string	36	采购批次				
+field	trade type	string	10	贸易类型		"长期协议矿,远期现货矿,即期现货矿"		
+field	ore area	string	10	矿石产区		"澳洲,巴西,非洲,亚洲,其他"		
+field	material id	string	36	物料名称				
+field	TFe 	string	20	TFe 				
+field	H2O	string	20	H2O				
+field	SiO2	string	20	SiO2				
+field	Al2O3	string	20	Al2O3				
+field	P	string	20	P				
+field	S	string	20	S				
+field	other	string	200	粒度				
+field	price	string	50	价格				currency
+field	purchase quantity	number	"20,5"	采购量				
+field	unit	string	10	单位		"干吨,湿吨"		
+field	port load date	date		装港日期				
+field	port load name	string	30	装港名称				
+field	port arrived date	date		到港日期				
+field	port arrived name	string	30	到港名称				
+field	buyer	string	30	买方（最终用户）				
+field	seller	string	30	卖方（矿山/供应商）				
+field	resource location	string	30	资源位置				
+field	audit state	string	10	审批状态		"未提交,提交,通过,未通过"		
+field	visible department	string	30	可见部门				
+field	create by	string	30	创建人				
+field	create date	date		创建日期				
+field	update by	string	30	更新人				
+field	update date	date		更新日期				
+field	flowcd	string	36	审批流程编码				
+field	endorder	string	10	审批结束序号				
+field	checkpost	string	36	审批职务f0				
+field	cd_nm	string	80	审批职务名称				
+field	checkuserid	string	36	审批人f0				
+field	user_nm	string	50	审批人姓名				

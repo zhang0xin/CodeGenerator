@@ -1,0 +1,3 @@
+<%table.fields.each_with_index{|field, index|%>
+ALTER TABLE <%= table.name %> MODIFY (<%= field.name%> <%= field.get_full_type() %>);
+<%}%>

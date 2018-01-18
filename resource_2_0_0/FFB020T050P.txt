@@ -1,0 +1,18 @@
+key	name	comment	query	table	edit
+page	FFB020T050P	¶Ô×â¼Ò½áËã			
+base_page	FFB020T				
+field	ship batch id		TRUE	TRUE	
+field	ship number		TRUE	TRUE	
+field	rent ship first fee			TRUE	TRUE
+field	transport first fee date		TRUE	TRUE	TRUE
+field	sea last fee			TRUE	TRUE
+field	last issue date		TRUE	TRUE	TRUE
+field	unit sea fee 			TRUE	TRUE
+field	load unload adjust			TRUE	TRUE
+field	uint oil adjust fee			TRUE	TRUE
+field	sea first fee			TRUE	TRUE
+field	voyage shipowner fee			TRUE	TRUE
+field	voyage rent fee			TRUE	TRUE
+field	unit transport fee			TRUE	TRUE
+field	last transport fee			TRUE	TRUE
+field	settlement date		TRUE	TRUE	TRUE

@@ -1,0 +1,60 @@
+key	name	type	type_length	comment	long_comment	category	range	range_code	reference	details	tags
+table	FFB020T			船运批次							
+id	f0	string	36	主键							
+field	ship batch id	string	36	船运批次		装港				FFB010T	
+field	ship number	string	36	船编号		装港			FFB050T		
+field	lc number	string	30	L/C号码		装港				FFB070T	
+field	port load name	string	30	装港名称		装港					
+field	port load ship agent	string	30	装港船代		装港					
+field	seller delay days	digits	10	装港对卖方滞期天数		装港					
+field	seller delay fee	number	20,2	装港对卖方滞期费		装港					has_unit
+field	seller delay fee unit	string	10	装港对卖方滞期费币种		装港		2003			
+field	port load delay fee	number	20,2	装港对船东滞期费		装港					has_unit
+field	port load delay fee unit	string	10	装港对船东滞期费币种		装港		2003			
+field	port load start date	date		装港开始时间		装港					
+field	port load end date	date		装港结束时间		装港					
+field	sea first single fee	number	20,2	首款海运费单价		海运付款					has_unit
+field	sea first single fee unit	string	10	首款海运费单价币种		海运付款		2003			
+field	sea last single fee	number	20,2	尾款海运费单价		海运付款					has_unit
+field	sea last single fee unit	string	10	尾款海运费单价币种		海运付款		2003			
+field	oil adjust single fee	number	20,2	油调单价		海运付款					has_unit
+field	oil adjust single fee unit	string	10	油调单价币种		海运付款		2003			
+field	base fee	number	20,2	基价		海运付款					has_unit
+field	base fee unit	string	10	基价币种		海运付款		2003			
+field	port adjust	number	20,2	港口调整		海运付款					has_unit
+field	port adjust unit	string	10	港口调整币种		海运付款		2003			
+field	oil adjust fee	number	20,2	油价调整		海运付款					has_unit
+field	oil adjust fee unit	string	10	油价调整币种		海运付款		2003			
+field	transport fee	number	20,2	运费单价		海运付款					has_unit
+field	transport fee unit	string	10	运费单价币种		海运付款		2003			
+field	transport first fee	number	20,2	运费首款额		海运付款					has_unit
+field	transport first fee unit	string	10	运费首款额币种		海运付款		2003			
+field	shipowner first fee date	date		付船东首款日期		海运付款					
+field	transport last fee	number	20,2	运费尾款额		海运付款					has_unit
+field	transport last fee unit	string	10	运费尾款额币种		海运付款		2003			
+field	shipowner last fee date	date		付船东尾款日期		海运付款					
+field	rent ship first fee	number	20,2	收租家首款运费/美元		对租家结算					
+field	transport first fee date	date		首款收到运费日		对租家结算					
+field	sea last fee	number	20,2	海运费尾款/美元		对租家结算					
+field	last issue date	date		尾款出票日		对租家结算					
+field	unit sea fee 	number	20,2	海运费单价/美元		对租家结算					
+field	load unload adjust	number	20,2	装卸港调整/美元		对租家结算					
+field	uint oil adjust fee	number	20,2	油调单价/美元		对租家结算					
+field	sea first fee	number	20,2	付船东首款运费/美元		对租家结算					
+field	voyage shipowner fee	number	20,2	付船东尾款运费/美元		对租家结算					
+field	voyage rent fee	number	20,2	收租家尾款运费/美元		对租家结算					
+field	unit transport fee	number	20,2	运费单价/美元		对租家结算					
+field	last transport fee	number	20,2	最终运费收付差额/美元		对租家结算					
+field	settlement date	date		结算结束日		对租家结算					
+field	coa difference	number	20,2	COA与外转运费差额/美元		对租家结算					
+field	exchange rate	number	20,5	当时汇率		对租家结算					
+field	final receiver	string	30	最终收货人		对租家结算					
+field	ffb020t050p archived	string	10	归档		对租家结算	已归档,未归档				
+field	current location	string	30	当前位置		船舶动态					
+field	arrived singapore date	date		预计到新加坡日期		船舶动态					
+field	unload date	date		预计卸港日期		船舶动态					
+field	create by	string	30	创建人							
+field	create date	datetime		创建日期							
+field	update by	string	30	更新人							
+field	update date	datetime		更新日期							
+field	archived	string	10	归档			已归档,未归档				

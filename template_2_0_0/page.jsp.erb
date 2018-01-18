@@ -1,0 +1,223 @@
+<%
+downcase_class_name = page.class_name.gsub(/^\w/){|s| s.downcase}
+downcase_page_name = page.page_name.gsub(/^\w/){|s| s.downcase}
+%><%%@ page language="java" import="java.util.*" pageEncoding="UTF-8" %>
+<%%@taglib prefix="s" uri="/struts-tags" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <title><%= page.page_comment %>管理</title>
+  
+    <link rel="stylesheet" type="text/css" href="../../jquery-easyui-1.4.1/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../jquery-easyui-1.4.1/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../jquery-easyui-1.4.1/demo/demo.css">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <script type="text/javascript" src="../../jquery-easyui-1.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../../jquery-easyui-1.4.1/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../../jquery-easyui-1.4.1/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="../../js/common-purchase.js"></script>
+  
+  <script type="text/javascript">
+    <% if page.has_currency_input? then %>
+    var currencyTypeDict = 
+    <s:action name="zaa010t" executeResult="true">
+      <s:param name="req.type">getDictOnCategory</s:param>
+      <s:param name="category">2003</s:param>
+    </s:action>;
+    <% end %>
+    
+    $(function(){
+      //getButtion("dynamic-buttons","<%= downcase_class_name %>");
+      $('#icon-add').bind("click",function(){new<%= page.page_name %>Entity();});
+      $('#icon-edit').bind("click",function(){edit<%= page.page_name %>Entity();});
+      $('#icon-remove').bind("click",function(){delete<%= page.page_name %>Entity();});
+      $('#icon-search').bind("click",function(){query<%= page.class_name %>Entity();});
+      $('#icon-cancel').bind("click",function(){reset<%= page.class_name %>Query();});
+      $('#icon-export').bind("click",function(){export<%= page.page_name %>Entities();});
+      $('#icon-file-lock').bind("click",function(){archive<%= page.page_name %>Entities();});
+      $('#icon-file-unlock').bind("click",function(){active<%= page.page_name %>Entities();});
+      <%
+        page.input_items_with_details.each do |prop|
+          details = prop.details
+          downcase_details = details.gsub(/^\w/){|s| s.downcase}
+      %>
+      $('#icon-details-add').bind("click",function(){addDetails<%=details%>();});
+      $('#icon-details-remove').bind("click",function(){removeDetails<%=details%>();});<%
+        end
+      %>
+    });
+    
+    function new<%= page.page_name %>Entity(){
+      $('#dlg<%= page.page_name %>Entity').dialog('open').dialog('setTitle', '新建');
+      $('#frm<%= page.class_name %>Entity').form('clear');
+    }
+    
+    function edit<%= page.page_name %>Entity(){
+      var r = $('#dg<%= page.page_name %>').datagrid('getSelected');
+      if(r==null){
+        $.messager.alert('系统提示', '请选中要编辑的行!', 'warning');
+        return;
+      }
+      load<%= page.class_name %>Entity(r);
+      
+      $('#dlg<%= page.page_name %>Entity').dialog('open').dialog('setTitle', '编辑');
+    }
+    
+    function save<%= page.page_name %>Entity(){
+      if (!$("#frm<%= page.class_name %>Entity").form("validate")){
+        $.messager.alert("系统提示", "请确保录入字段都符合正确的格式或录入了所有的必填字段，查找表单中红色部分并修改。")
+        return;
+      }
+      var row = $("#dg<%= page.page_name %>").datagrid("getSelected")
+      if (($("dlg<%= page.page_name %>Entity input[name='entity.f0']").val() == "")) row = {};
+      var entity = createEntityData("frm<%= page.class_name %>Entity", row)
+      $.post("<%=downcase_page_name%>.action?reqtype=save", entity, function(data){
+        if (data.success){
+          $("#frm<%= page.class_name %>Entity").form("clear");
+          $("#dlg<%= page.page_name %>Entity").dialog("close");
+          $("#dg<%= page.page_name %>").datagrid("reload");
+        }else{
+          $.messager.alert("系统提示", data.message);
+        }
+      }, "JSON");
+    }
+    
+    function delete<%= page.page_name %>Entity(){
+      executeCommand("<%=downcase_class_name%>", "delete", "dg<%= page.page_name %>", "请选择要删除的行!", true, "确认删除吗？")
+    }
+    
+    function archive<%= page.page_name %>Entities(){ 
+      executeCommand("<%=downcase_page_name%>", "archive", "dg<%= page.page_name %>", "请选择要归档的行!")
+    }
+    
+    function active<%= page.page_name %>Entities(){
+      executeCommand("<%=downcase_page_name%>", "active", "dg<%= page.page_name %>", "请选择要激活的行!") 
+    }
+    
+    function export<%= page.page_name %>Entities(){
+      var queryParams = create<%= page.class_name %>QueryParams();
+      queryParams.selectedColumns = getColumnDescriptions($('#dg<%= page.page_name %>'));
+      
+      $.ajax({
+        url: "<%=downcase_class_name%>.action?reqtype=export",
+        type: "POST",
+        beforeSend:$.ajaxLoading,
+        dataType: 'json',
+        data: queryParams,
+        success: function(data) {
+          $.ajaxLoadEnd();
+          if (data.success == true) {
+            download('download.xlsx', data.serverFileName);
+          }else{
+            $.messager.alert('系统提示', '导出失败!', 'error');
+          }
+        }
+      });
+    }
+
+    function on<%= page.page_name %>DblClickRow(rowIndex, rowData){
+      if ($('#icon-edit').length == 0) return;
+      edit<%= page.page_name %>Entity();
+    }
+    
+    function on<%= page.page_name %>ClickRow(rowIndex, rowData){
+      var r = $('#dg<%= page.page_name %>').datagrid('getSelected');
+      load<%= page.class_name %>Entity(r);
+      <%
+        page.input_items_with_details.each do |input|
+          details = input.details
+          downcase_details = details.gsub(/^\w/){|s| s.downcase}
+      %>
+      if (rowData.<%= input.name %> == '') return;
+      var params = {
+        'query.<%= input.name %>.eqValue' : rowData.<%= input.name %>
+      };
+      reloadDetails<%=details%>(params);<%
+        end
+      %>
+    }
+  </script>
+  </head>
+  
+  <body style="margin:0;padding:0px;">
+    <div id="dynamic-buttons"></div>
+    <div>
+      <a id="icon-add" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" >新建</a>
+      <a id="icon-edit" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" >编辑</a>
+      <a id="icon-remove" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" >删除</a>
+      <a id="icon-export" href="javascript:void(0)"  class="easyui-linkbutton"  iconCls="icon-export" plain="true">导出</a>
+      <%
+        page.input_items_with_details.each do |input_item|
+          details = input_item.details
+          downcase_details = details.gsub(/^\w/){|s| s.downcase}
+          details_page = pages[downcase_details]
+      %>
+      <a id="icon-addDetails" href="javascript:void(0)"  class="easyui-linkbutton"  iconCls="icon-add" plain="true">添加<%= details_page.page_comment %></a>
+      <a id="icon-removeDetails" href="javascript:void(0)"  class="easyui-linkbutton"  iconCls="icon-remove" plain="true">删除<%= details_page.page_comment %></a>
+      <% end %>
+      <a id="icon-file-lock" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-file-lock" plain="true" >归档</a>
+      <a id="icon-file-unlock" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-file-unlock" plain="true" >激活</a>
+    </div>
+    <div class="easyui-panel" title="查询选项" data-options="iconCls:'icon-search',collapsible:true,collapsed:true">
+      <jsp:include page="<%=downcase_class_name%>_segments/<%=downcase_class_name%>_query.jsp" >
+        <jsp:param name="displayQueryFields" value="<%=page.queryable_fields%>" />
+        <jsp:param name="targetDataGridId" value="dg<%= page.page_name %>" />
+      </jsp:include>
+    </div>
+    <div class="easyui-panel" title="<%= page.page_comment%>" data-options="iconCls:'icon-edit',collapsible:true">
+      <jsp:include page="<%=downcase_class_name%>_segments/<%=downcase_class_name%>_grid.jsp" >
+        <jsp:param name="displayTableFields" value="<%=page.tableable_fields%>" />
+        <jsp:param name="onDblClickRow" value="function(rowIndex, rowData){ on<%= page.page_name %>DblClickRow(rowIndex, rowData); }" />
+        <jsp:param name="onClickRow" value="function(rowIndex, rowData){ on<%= page.page_name %>ClickRow(rowIndex, rowData); }" />
+        <jsp:param name="dataGridId" value="dg<%= page.page_name %>" />
+        <jsp:param name="hiddenCheckboxColumn" value="false" />
+      </jsp:include> 
+    </div>
+
+    <div id="dlg<%= page.page_name %>Entity" class="easyui-dialog edit-dialog" buttons="#dlg-buttons" title="新建" closed="true" >
+      <jsp:include page="<%=downcase_class_name%>_segments/<%=downcase_class_name%>_edit.jsp" >
+        <jsp:param name="displayEditFields" value="<%=page.editable_fields%>" />
+        <jsp:param name="formId" value="frmEntity" />
+      </jsp:include> 
+      <div id="dlg-buttons">
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="save<%= page.page_name %>Entity()">保存</a> 
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg<%= page.page_name %>Entity').dialog('close')">取消</a>
+      </div>
+    </div>
+    <%
+      page.input_items_with_reference.each do |prop|
+        reference = prop.reference
+        downcase_reference = reference.gsub(/^\w/){|s| s.downcase}
+        reference_page = pages[downcase_reference]
+        downcase_reference_class_name = reference_page.class_name.gsub(/^\w/){|s| s.downcase}
+    %>
+    <jsp:include page="<%=downcase_reference_class_name%>_segments/<%=downcase_reference_class_name%>_dialog_selector.jsp" >
+      <jsp:param name="bindTargets" value="query_<%=downcase_class_name%>_<%= prop.name%>, form_<%=downcase_class_name%>_<%= prop.name%>" />
+      <jsp:param name="valueField" value="<%= prop.name%>" />
+      <jsp:param name="displayQueryFields" value="<%= reference_page.queryable_fields%>" />  
+      <jsp:param name="displayTableFields" value="<%= reference_page.tableable_fields%>" />
+    </jsp:include><%
+      end
+    %>
+    <%
+      page.input_items_with_details.each do |prop|
+        details = prop.details
+        downcase_details = details.gsub(/^\w/){|s| s.downcase}
+        details_page = pages[downcase_details]
+        downcase_details_class_name = details_page.class_name.gsub(/^\w/){|s| s.downcase}
+    %>
+    <div class="easyui-panel" title="<%= details_page.page_comment %>" data-options="iconCls:'icon-note',collapsible:true">
+      <jsp:include page="<%=downcase_details_class_name%>_segments/<%=downcase_details_class_name%>_details_editor.jsp" >
+        <jsp:param name="displayQueryFields" value="<%= details_page.queryable_fields%>" />  
+        <jsp:param name="displayTableFields" value="<%= details_page.tableable_fields%>" />
+        <jsp:param name="targetMainGridId" value="dg<%= page.page_name %>" />
+        <jsp:param name="targetProperty" value="<%= prop.name %>" />
+        <jsp:param name="reloadDetailsFunction" value="reloadDetails<%=details%>" />
+        <jsp:param name="addDetailsFunction" value="addDetails<%=details%>" />
+        <jsp:param name="removeDetailsFunction" value="removeDetails<%=details%>" />
+      </jsp:include>
+    </div><%
+      end
+    %>
+  </body>
+</html>

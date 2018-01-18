@@ -1,0 +1,240 @@
+<%
+downcase_class_name = entity.class_name.gsub(/^\w/){|s| s.downcase}
+
+%><%%@ page language="java" import="java.util.*" pageEncoding="UTF-8" %>
+<%%@taglib prefix="s" uri="/struts-tags" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <title><%= entity.class_comment %>管理</title>
+  
+    <link rel="stylesheet" type="text/css" href="../../jquery-easyui-1.4.1/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../jquery-easyui-1.4.1/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../jquery-easyui-1.4.1/demo.css">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <script type="text/javascript" src="../../jquery-easyui-1.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../../jquery-easyui-1.4.1/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../../jquery-easyui-1.4.1/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="../../js/common-purchase.js"></script>
+  
+  <script type="text/javascript">
+    var currencyTypeDict = 
+    <s:action name="zaa010t" executeResult="true">
+      <s:param name="req.type">getDictOnCategory</s:param>
+      <s:param name="category">2003</s:param>
+    </s:action>;
+    
+    $(function(){
+      $('#icon-add').bind("click",function(){newEntity();});
+      $('#icon-edit').bind("click",function(){editEntity();});
+      $('#icon-remove').bind("click",function(){deleteEntity();});
+      $('#icon-search').bind("click",function(){queryEntity();});
+      $('#icon-cancel').bind("click",function(){resetQuery();});
+      $('#icon-export').bind("click",function(){exportEntities();});
+      
+      $('#dg').datagrid({
+        url: '<%= downcase_class_name%>.action?reqtype=query',
+        singleSelect: true,
+        selectOnCheck: false,
+        checkOnSelect: false,
+        pagination: true,
+        rownumbers: true, 
+        fitColumns: true, 
+        onDblClickRow: function(rowIndex, rowData){
+          onDblClickRow(rowData);
+        },
+        onHeaderContextMenu: function(e, field){
+          e.preventDefault();
+          if (typeof columnSelectMenu == 'undefined') 
+            columnSelectMenu = createColumnMenu($('#dg'));
+          columnSelectMenu.menu('show', {left : e.pageX, top : e.pageY});
+        },
+        columns: [[
+          {field: 'ck', title: '复选框', checkbox: true },
+          <%entity.properties.each_with_index(){|property, index| 
+          %><%= CodeHelper.genernate_datagrid_column(property)%><%= index >= entity.properties.length-1 ? '' : ','%>
+          <%}%>
+        ]]
+      });
+      
+    });
+    
+    function newEntity(){
+      $('#dlgEntity').dialog('open').dialog('setTitle', '新建');
+      $('#frmEntity').form('clear');
+    }
+    
+    function editEntity(){
+      var r = $('#dg').datagrid('getSelected');
+      if(r==null){
+        $.messager.alert('系统提示', '请选中要编辑的行!', 'warning');
+        return;
+      }
+      $('#f0').val(r.f0);
+      <%entity.properties.each(){|property|
+        next if (property.name == 'f0')
+      %><%= CodeHelper.genernate_form_set(property) %>
+      <%}%>
+      $('#dlgEntity').dialog('open').dialog('setTitle', '编辑');
+    }
+    
+    function saveEntity(){ 
+      $('#frmEntity').form('submit', {
+        url: '<%= downcase_class_name%>.action?reqtype=save',
+        success: function(data){
+          data = eval('(' + data + ')');
+          if (data.success){
+            $('#frmEntity').form('clear');
+            $('#dlgEntity').dialog('close');
+            $('#dg').datagrid('reload');
+          }else{
+            $.messager.alert('系统提示', data.message);
+          }
+        }
+      }); 
+    }
+    
+    function deleteEntity(){
+      var items = $('#dg').datagrid('getChecked');
+      if (items == null || items == ""){
+        $.messager.alert('系统提示', '请选择要删除的行!', 'warning');
+        return;
+      }
+      $.messager.confirm('系统提示', '是否确认删除？', function(r){
+        if (!r) return;
+        var delurl = "<%= downcase_class_name%>.action?reqtype=delete";
+        for (var i=0; i<items.length; i++){
+          delurl += "&ids=" + items[i].f0;
+        }
+        $.ajax({
+          url : delurl,
+          type : "POST",
+          dataType : 'json',
+          success : function() {
+            $('#dg').datagrid('reload');
+          }
+        });
+      });
+      
+    }
+    
+    function exportEntities(){
+      var queryParams = createQueryParams();
+      queryParams.selectedColumns = getColumnDescriptions($('#dg'));
+      
+      $.ajax({
+        url: "<%= downcase_class_name%>.action?reqtype=export",
+        type: "POST",
+        beforeSend:$.ajaxLoading,
+        dataType: 'json',
+        data: queryParams,
+        success: function(data) {
+          $.ajaxLoadEnd();
+          if (data.success == true) {
+            download('download.xlsx', data.serverFileName);
+          }else{
+            $.messager.alert('系统提示', '导出失败!', 'error');
+          }
+        }
+      });
+    }
+    
+    function queryEntity(){
+      var queryParams = createQueryParams();
+      $('#dg').datagrid('reload', queryParams);
+    }
+    
+    function createQueryParams(){
+      return {
+      <%
+      entity.properties.each_with_index(){|property, index|
+        str_set_query_param = CodeHelper.genernate_query_param(property)
+        str_set_query_param += "," if index < entity.properties.length-1
+      %>  <%= str_set_query_param%>
+      <%}%>
+      };
+    }
+    
+    function resetQuery(){
+    <%
+    entity.properties.each_with_index(){|property, index|
+      str_query_param_clear = CodeHelper.genernate_query_param_clear(property)
+    %>  <%= str_query_param_clear%>
+    <%}%>
+      queryEntity();
+    }
+    
+    function onDblClickRow(){
+      if ($('#icon-edit').length == 0) return;
+      editEntity();
+    }
+  </script>
+  </head>
+  
+  <body style="margin:0;padding:0px;">
+    <div>
+      <a id="icon-add" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" >新建</a>
+      <a id="icon-edit" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" >编辑</a>
+      <a id="icon-remove" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" >删除</a>
+      <a id="icon-export" href="javascript:void(0)"  class="easyui-linkbutton"  iconCls="icon-export" plain="true">导出</a>
+    </div>
+    <div class="easyui-panel" title="查询选项" data-options="iconCls:'icon-search',collapsible:true,collapsed:true">
+      <div class="query">
+        <%
+        entity.properties.each(){|property|
+        %><%= CodeHelper.genernate_query_input(property) %>
+        <%}%>
+        <div>
+          <a id="icon-search" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" >查询</a>
+          <a id="icon-cancel" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" >重置</a>
+        </div>
+      </div>
+    </div>
+    <div class="easyui-panel" title="查询结果" data-options="iconCls:'icon-edit',collapsible:true"><table id="dg"></table></div>
+    
+    <div id="dlgEntity" class="easyui-dialog edit-dialog" buttons="#dlg-buttons" title="新建" closed="true" >
+      <form id="frmEntity" method="post" enctype="multipart/form-data">
+        <input id="f0" name="entity.f0" type="hidden" >
+        <table>
+        <%
+        entity.properties.each(){|property|
+          next if (property.name == 'f0')
+        %>  <tr><td><%= CodeHelper.genernate_form_input(property) %></td></tr>
+        <%}%>
+        </table>
+      </form>
+      <div id="dlg-buttons">
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" 
+          onclick="saveEntity()">保存</a> 
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" 
+          onclick="javascript:$('#dlgEntity').dialog('close')">取消</a>
+      </div>
+    </div>
+    
+    <%
+    entity.properties.each(){|property|
+      next if property.ref_object.empty?
+      refObjectName = property.ref_object.downcase
+    %>
+    <!-- #dlg-<%= property.ref_object%> -->
+    <script type="text/javascript">
+    function <%= refObjectName%>Selected(row){
+      textboxClickSender.textbox('setValue', row.<%= property.name%>);
+    }
+    $(function(){
+      if ($('#dlg-<%= refObjectName%>').length == 0) return;
+      bindTextboxClick('#query_<%= property.name%>', '#dlg-<%= refObjectName%>');
+      bindTextboxClick('#<%= property.name%>', '#dlg-<%= refObjectName%>');
+    });
+    </script>
+    <jsp:include page="<%= refObjectName%>_dlg_selector.jsp" >
+      <jsp:param name="event-selected" value="<%= refObjectName%>Selected" />
+      
+      <jsp:param name="dispaly-query-fields" value="f0,purchaseBatchId, tradeType, oreArea, materialId, purchaseQuantity" /> 
+      <jsp:param name="hide-query-fields" value="f0" />  
+      <jsp:param name="display-table-fields" value="f0,purchaseBatchId, tradeType, oreArea, materialId, purchaseQuantity, unit" />
+      <jsp:param name="hide-table-fields" value="f0" />
+    </jsp:include> 
+    <%}%>
+  </body>
+</html>

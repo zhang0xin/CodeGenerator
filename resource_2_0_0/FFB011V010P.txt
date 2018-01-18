@@ -1,0 +1,41 @@
+key	name	comment	query	table	edit
+page	FFB011V010P	采购审批			
+base_page	FFB011V				
+field	f0	主键			
+field	biz id	业务id			
+field	where id	审批条件id			
+field	prev state	上级审批状态	TRUE	TRUE	
+field	next order	下级审批序号	TRUE	TRUE	
+field	purchase batch id	采购批次	TRUE	TRUE	
+field	trade type	贸易类型	TRUE	TRUE	
+field	ore area	矿石产区	TRUE	TRUE	
+field	material id	物料名称	TRUE	TRUE	
+field	TFe 	TFe 		TRUE	
+field	H2O	H2O		TRUE	
+field	SiO2	SiO2		TRUE	
+field	Al2O3	Al2O3		TRUE	
+field	P	P		TRUE	
+field	S	S		TRUE	
+field	other	粒度		TRUE	
+field	price	价格模式		TRUE	
+field	purchase quantity	采购量		TRUE	
+field	unit	单位	TRUE	TRUE	
+field	port load date	装港日期	TRUE	TRUE	
+field	port load name	装港名称	TRUE	TRUE	
+field	port arrived date	到港日期	TRUE	TRUE	
+field	port arrived name	到港名称	TRUE	TRUE	
+field	buyer	买方（最终用户）	TRUE	TRUE	
+field	seller	卖方（矿山/供应商）	TRUE	TRUE	
+field	resource location	资源位置	TRUE	TRUE	
+field	audit state	审批状态	TRUE	TRUE	
+field	visible department	可见部门			
+field	create by	创建人	TRUE	TRUE	
+field	create date	创建日期	TRUE	TRUE	
+field	update by	更新人	TRUE	TRUE	
+field	update date	更新日期	TRUE	TRUE	
+field	flowcd	审批流程编码			
+field	endorder	审批结束序号			
+field	checkpost	审批职务f0			
+field	cd_nm	审批职务名称			
+field	checkuserid	审批人f0			
+field	user_nm	审批人姓名			

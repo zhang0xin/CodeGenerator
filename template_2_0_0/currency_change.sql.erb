@@ -1,0 +1,19 @@
+<%
+selected_fields = ''
+table.fields.each_with_index{|field, index|
+  old_field_name = field.name.chop
+  next if !field.tags.include? 'has_unit'
+  
+  selected_fields += ", #{old_field_name}, #{field.name}, #{field.name}_unit"
+%>
+update <%= table.name %> 
+set 
+<%= field.name%>_unit = 
+decode(substr(<%=old_field_name%>, instr(<%=old_field_name%>, ' ')+1), 'ay', '澳元', 'my', '美元', 'oy', '欧元', 'rmb', '人民币', 'ry', '日元'),
+<%= field.name%> =
+to_number(rtrim(substr(<%=old_field_name%>, 0, decode(instr(<%=old_field_name%>, ' '), 0, 100, instr(<%=old_field_name%>, ' ')))))
+;
+<%}%>
+
+
+select f0 <%= selected_fields%> from <%= table.name %> 

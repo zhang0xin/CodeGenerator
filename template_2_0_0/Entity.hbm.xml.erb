@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.ysusoft.POJO.<%= entity.class_name %>" table="<%= table.name %>">
+        <id name="f0" type="java.lang.String">
+            <column name="f0" length="36" />
+            <generator class="uuid.hex" />
+        </id>
+        <%
+        entity.properties.each_with_index(){|property, index| 
+          next if property.name == 'f0'
+          len_type = ''
+          if property.type =~ /.String$/ then
+            len_type = "length=\"#{table.fields[index].type_length}\""
+          elsif property.type =~ /.Long$/ then
+            len_type = "precision=\"#{table.fields[index].type_length}\""
+          end
+        %>
+            <property name="<%= property.name%>" type="<%= property.type%>">
+                <column name="<%= table.fields[index].name %>" <%= len_type %> />
+            </property>
+        <%}%>
+    </class>
+</hibernate-mapping>

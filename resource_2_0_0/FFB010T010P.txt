@@ -1,0 +1,28 @@
+key	name	comment	query	table	edit
+page	FFB010T010P	≤…π∫…Í«Î			
+base_page	FFB010T				
+field	f0				
+field	purchase batch id		TRUE	TRUE	TRUE
+field	trade type		TRUE	TRUE	TRUE
+field	ore area		TRUE	TRUE	TRUE
+field	material category		TRUE	TRUE	TRUE
+field	material id		TRUE	TRUE	TRUE
+field	TFe 			TRUE	TRUE
+field	H2O			TRUE	TRUE
+field	SiO2			TRUE	TRUE
+field	Al2O3			TRUE	TRUE
+field	P			TRUE	TRUE
+field	S			TRUE	TRUE
+field	other			TRUE	TRUE
+field	price			TRUE	TRUE
+field	purchase quantity			TRUE	TRUE
+field	unit		TRUE	TRUE	TRUE
+field	port load date		TRUE	TRUE	TRUE
+field	port load name		TRUE	TRUE	TRUE
+field	port arrived date		TRUE	TRUE	TRUE
+field	port arrived name		TRUE	TRUE	TRUE
+field	buyer		TRUE	TRUE	TRUE
+field	seller		TRUE	TRUE	TRUE
+field	resource location		TRUE	TRUE	TRUE
+field	audit state		TRUE	TRUE	
+field	visible department			TRUE	

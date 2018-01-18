@@ -1,0 +1,57 @@
+<%
+ignore_props = ['f0', 'createBy', 'createDate', 'updateBy', 'updateDate', 'archived']
+%>package com.ysusoft.POJO;
+
+import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
+
+import com.ysusoft.annotations.Comment;
+
+@SuppressWarnings("serial")
+@MappedSuperclass
+public class <%= entity.class_name %>Auto extends BaseEntity {
+  <%entity.properties.each_with_index(){|property, index| 
+    next if ignore_props.include?(property.name)
+    len_type = ''
+          if property.java_type =~ /.String$/ then
+            len_type = ", length=#{table.fields[index].type_length}"
+          elsif property.java_type =~ /.Long$/ then
+            len_type = ", precision=#{table.fields[index].type_length}"
+          end
+  %>
+  @Comment("<%= entity.properties[index].comment %>")
+  @Column(name="<%= table.fields[index].name %>"<%= len_type %>)
+  private <%= property.java_type%> <%= property.name%>;
+  <%}%>
+
+  public <%= entity.class_name %>Auto() {
+  }
+
+  <%entity.properties.each(){|property| 
+    next if ignore_props.include?(property.name)
+    upcase_porp = property.name.gsub(/^\w/) {|s| s.upcase }
+  %>
+  public <%= property.java_type %> get<%= upcase_porp %>() {
+    return this.<%= property.name %>;
+  }
+  public void set<%= upcase_porp %>(<%= property.java_type %> <%= property.name %>) {
+    this.<%= property.name%> = <%= property.name%>;
+  }
+  <%
+    next if property.type != 'currency'
+  %>
+  public <%= property.java_type %> get<%= upcase_porp %>Value() {
+    return getFeeValue(get<%= upcase_porp %>());
+  }
+  public void set<%= upcase_porp %>Value(<%= property.java_type %> value) {
+    set<%= upcase_porp %>(changeFeeValue(get<%= upcase_porp %>(), value));
+  }
+  
+  public <%= property.java_type %> get<%= upcase_porp %>CurrencyType() {
+    return getFeeCurrencyType(get<%= upcase_porp %>());
+  }
+  public void set<%= upcase_porp %>CurrencyType(<%= property.java_type %> currencyType) {
+    set<%= upcase_porp %>(changeFeeCurrencyType(get<%= upcase_porp %>(), currencyType));
+  }
+  <%}%>
+}

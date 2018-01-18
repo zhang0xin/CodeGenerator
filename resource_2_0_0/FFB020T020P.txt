@@ -1,0 +1,12 @@
+key	name	comment	query	table	edit
+page	FFB020T020P	–≈”√÷§			
+base_page	FFB020T				
+field	ship batch id		TRUE	TRUE	
+field	ship number		TRUE	TRUE	
+field	issue property		TRUE	TRUE	TRUE
+field	issue bank		TRUE	TRUE	TRUE
+field	beneficiary 		TRUE	TRUE	TRUE
+field	lc_no		TRUE	TRUE	TRUE
+field	issue amount			TRUE	TRUE
+field	issue price			TRUE	TRUE
+field	issue date		TRUE	TRUE	TRUE

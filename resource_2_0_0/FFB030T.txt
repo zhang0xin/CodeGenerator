@@ -1,0 +1,16 @@
+key	name	type	type_length	comment	long_comment	category	range	range_code	reference	details	tags
+table	FFB030T			卸港							
+id	f0	string	36	主键							
+field	unload port id	string	36	卸港批次		卸港					
+field	unload port	string	36	卸港		卸港		2004			
+field	ship batch id	string	36	船运批次		卸港			FFB020T		
+field	arrived port date	date		NOR到港日		卸港					
+field	berth date	date		靠泊日		卸港					
+field	unloaded date	date		卸毕日		卸港					
+field	depart port date	date		离港日		卸港					
+field	final receiver	string	10	最终收货人		卸港					
+field	create by	string	30	创建人							
+field	create date	datetime		创建日期							
+field	update by	string	30	更新人							
+field	update date	datetime		更新日期							
+field	archived	string	10	归档			"已归档,未归档"				

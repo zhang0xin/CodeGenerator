@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu>
+<%
+index = 0
+pages.each{|name, page|
+  index += 1
+%>
+<id>
+<%= name%>
+</id>
+<text>
+<%= page.page_comment%>
+</text>
+<page>
+forms/purchase/<%= name%>.jsp
+</page>
+<index>
+<%=index%>0
+</index>
+<%}%> 
+</menu>

@@ -1,0 +1,28 @@
+key	name	comment	query	table	edit
+page	FFB030T030P	±¨¹Ø±¨¼ì			
+base_page	FFB030T				
+field	unload port id		TRUE	TRUE	
+field	goods agent		TRUE	TRUE	TRUE
+field	declare customs company		TRUE	TRUE	TRUE
+field	deposit fee			TRUE	TRUE
+field	port fee			TRUE	TRUE
+field	port construction fee			TRUE	TRUE
+field	port agent fee			TRUE	TRUE
+field	detect fee			TRUE	TRUE
+field	sample fee			TRUE	TRUE
+field	water gauge fee			TRUE	TRUE
+field	declare customs		TRUE	TRUE	TRUE
+field	customs clearance last date		TRUE	TRUE	TRUE
+field	customs clearance actual date		TRUE	TRUE	TRUE
+field	SAFE declar		TRUE	TRUE	TRUE
+field	declare customs date		TRUE	TRUE	TRUE
+field	declare customs bill		TRUE	TRUE	TRUE
+field	customs clearance state		TRUE	TRUE	TRUE
+field	declare customs fee			TRUE	TRUE
+field	license number		TRUE	TRUE	TRUE
+field	value added tax			TRUE	TRUE
+field	customs tax equalize			TRUE	TRUE
+field	inspection fee			TRUE	TRUE
+field	boat fee			TRUE	TRUE
+field	declare customs agent fee			TRUE	TRUE
+field	declare inspection agent fee			TRUE	TRUE

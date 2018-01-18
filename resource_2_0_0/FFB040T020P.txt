@@ -1,0 +1,31 @@
+key	name	comment	query	table	edit
+page	FFB040T020P	–∂∏€∆∑÷ 			
+base_page	FFB040T				
+field	purchase batch id		TRUE	TRUE	TRUE
+field	unload port id		TRUE	TRUE	TRUE
+field	TFe 			TRUE	TRUE
+field	SiO2 			TRUE	TRUE
+field	CaO 			TRUE	TRUE
+field	MgO 			TRUE	TRUE
+field	Al2O3 			TRUE	TRUE
+field	TiO2 			TRUE	TRUE
+field	K2O 			TRUE	TRUE
+field	Na2O 			TRUE	TRUE
+field	ZnO 			TRUE	TRUE
+field	As 			TRUE	TRUE
+field	PbO			TRUE	TRUE
+field	Cr 			TRUE	TRUE
+field	Ni 			TRUE	TRUE
+field	Cu 			TRUE	TRUE
+field	Mn 			TRUE	TRUE
+field	H2O 			TRUE	TRUE
+field	burn lose 			TRUE	TRUE
+field	FeO 			TRUE	TRUE
+field	P 			TRUE	TRUE
+field	S			TRUE	TRUE
+field	grain size		TRUE	TRUE	TRUE
+field	remark		TRUE	TRUE	TRUE
+field	create by		TRUE	TRUE	
+field	create date		TRUE	TRUE	
+field	update by		TRUE	TRUE	
+field	update date		TRUE	TRUE	

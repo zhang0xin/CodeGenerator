@@ -1,0 +1,165 @@
+<%
+  downcase_class_name = entity.class_name.gsub(/^\w/){|s| s.downcase}
+  prefix = downcase_class_name + "_"
+%><%%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%%@ page language="java" import="org.springframework.web.context.support.WebApplicationContextUtils"%>
+<%%@ page language="java" import="org.springframework.context.ApplicationContext"%>
+<%%@ page language="java" import="com.ysusoft.Util.*"%>
+<%%@ page language="java" import="com.ysusoft.ui.purchase.<%= entity.class_name %>Ui"%>
+
+<%%
+// parameters define
+String targetMainGridId = "";
+String targetProperty = "";
+String reloadDetailsFunction = "reloadDetails<%=entity.class_name%>";
+String addDetailsFunction = "addDetails<%=entity.class_name%>";
+String removeDetailsFunction = "removeDetails<%=entity.class_name%>";
+String displayQueryFields = request.getParameter("displayQueryFields");
+String hiddenQueryFields = request.getParameter("hiddenQueryFields");
+String displayTableFields = request.getParameter("displayTableFields");
+String hiddenTableFields = request.getParameter("hiddenTableFields");
+
+// parameters initialize
+if (request.getParameter("targetMainGridId") != null) targetMainGridId = request.getParameter("targetMainGridId");
+if (request.getParameter("targetProperty") != null) targetProperty = request.getParameter("targetProperty");
+if (request.getParameter("reloadDetailsFunction") != null) reloadDetailsFunction = request.getParameter("reloadDetailsFunction");
+if (request.getParameter("addDetailsFunction") != null) addDetailsFunction = request.getParameter("addDetailsFunction");
+if (request.getParameter("removeDetailsFunction") != null) removeDetailsFunction = request.getParameter("removeDetailsFunction");
+
+// varibles
+ApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
+<%= entity.class_name %>Ui ui = (<%= entity.class_name %>Ui) ctx.getBean("<%= downcase_class_name%>Ui");
+
+%>
+
+<script type="text/javascript">
+function popDlg<%= entity.class_name%>(){
+  $('#dlg<%= entity.class_name%>').dialog('open');
+  dlg<%= entity.class_name%>Reset();
+}
+
+function <%%= reloadDetailsFunction%>(params){
+  $('#dgDetails<%= entity.class_name %>').datagrid('reload', params);
+}
+
+function dlg<%= entity.class_name%>Selected(){
+  rows = $('#dgDetailsQuery<%= entity.class_name %>').datagrid('getSelections');
+  if (rows.length == 0){
+    $.messager.alert('系统提示', '没有选择<%=entity.class_comment%>，请选择行。');
+    return;
+  }
+
+  selected<%= entity.class_name%>(rows);
+  
+  $('#dlg<%= entity.class_name%>').dialog('close');
+}
+
+function <%%=addDetailsFunction%>(){
+  var r = $('#<%%= targetMainGridId%>').datagrid('getSelected');
+  if (r == null) {
+    $.messager.alert('系统提示', '请选择装港信息。');
+    return;
+  }
+  popDlg<%= entity.class_name%>();
+}
+function <%%=removeDetailsFunction%>(){
+  var rows = $('#dgDetails<%= entity.class_name %>').datagrid('getSelections');
+  if (rows.length == 0) {
+    $.messager.alert('系统提示', '请选择<%= entity.class_comment%>。');
+    return;
+  }
+  $.messager.confirm('系统提示', '是否确认删除？', function(r){
+    if (!r) return;
+    setProperty('<%= downcase_class_name%>', get<%= entity.class_name %>Ids(rows), '<%%= targetProperty%>', '');
+  });
+}
+function selected<%= entity.class_name %>(rows){
+  var value = $('#<%%= targetMainGridId%>').datagrid('getSelected').<%%= targetProperty%>;
+  setProperty('<%= downcase_class_name%>', get<%= entity.class_name %>Ids(rows), '<%%= targetProperty%>', value);
+}
+function get<%= entity.class_name %>Ids(rows){
+  var ids = '';
+  for (i=0; i<rows.length; i++){
+    ids += rows[i].f0;
+    if (i != rows.length-1) ids += ',';
+  }
+  return ids;
+}
+$(function(){
+  $('#dgDetails<%= entity.class_name %>').datagrid({
+    url: '<%= downcase_class_name %>.action?reqtype=queryRequireParams',
+    pagination: true,
+    pageSize: 5,
+    pageList: [5,10,20,30,40,50],
+    rownumbers: true, 
+    fitColumns: false, 
+    columns: [[
+      {field: 'ck', title: '复选框', checkbox: true, hidden: true },
+<%%= displayTableFields!=null? ui.createDataGridColumn(displayTableFields, true) : "" %>
+<%%= hiddenTableFields!=null? ui.createDataGridColumn(hiddenTableFields, false) : "" %>
+    ]]
+  });
+});
+</script>
+<div id="dlg<%= entity.class_name%>" class="easyui-dialog pop-dialog" buttons="#dlg<%= entity.class_name%>Buttons" title="选择" closed="true">
+  <div class="easyui-panel query-panel" title="查询选项" data-options="iconCls:'icon-search',collapsible:true,collapsed:true">
+    <script type="text/javascript">
+    function dlg<%= entity.class_name%>Query(){
+      var queryParams = create<%= entity.class_name%>QueryParams();
+      $('#dgDetailsQuery<%= entity.class_name %>').datagrid('reload', queryParams);
+    }
+    function create<%= entity.class_name%>QueryParams(){
+      var params = createQueryParams("detail_<%= downcase_class_name%>_query");
+      params['query.f0.isNotNullValue'] = 'true';
+      return params;
+    }
+    function dlg<%= entity.class_name%>Reset(){
+      resetQueryInputs("detail_<%= downcase_class_name%>_query");
+      dlg<%= entity.class_name%>Query();
+    }
+    </script>
+    <div id="detail_<%= downcase_class_name%>_query" class="query">
+<%%= displayQueryFields!=null? ui.createQueryInputs(displayQueryFields, true) : "" %>
+<%%= hiddenQueryFields!=null? ui.createQueryInputs(hiddenQueryFields, false) : "" %>
+      <div>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="dlg<%= entity.class_name%>Query()">查询</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="dlg<%= entity.class_name%>Reset()">重置</a>
+      </div>
+    </div>
+  </div>
+  <div class="easyui-panel result-panel" title="查询结果" data-options="iconCls:'icon-edit',collapsible:true">
+    <script type="text/javascript">
+    $(function(){
+      $('#dgDetailsQuery<%= entity.class_name %>').datagrid({
+        url: '<%= downcase_class_name%>.action?reqtype=query',
+        singleSelect: false,
+        selectOnCheck: false,
+        checkOnSelect: false,
+        pagination: true,
+        pageSize: 5,
+        pageList: [5,10,20,30,40,50],
+        rownumbers: true, 
+        fitColumns: false,
+        fit: true,
+        onHeaderContextMenu: function(e, field){
+          e.preventDefault();
+          if (typeof columnSelectMenu == 'undefined') 
+            columnSelectMenu = createColumnMenu($('#dg'));
+          columnSelectMenu.menu('show', {left : e.pageX, top : e.pageY});
+        },
+        columns: [[
+          {field: 'ck', title: '复选框', checkbox: true, hidden: true },
+<%%= displayTableFields!=null? ui.createDataGridColumn(displayTableFields, true) : "" %>
+<%%= hiddenTableFields!=null? ui.createDataGridColumn(hiddenTableFields, false) : "" %>
+        ]]
+      });
+    })
+    </script>
+    <table id="dgDetailsQuery<%= entity.class_name %>"></table>
+  </div>
+  <div id="dlg<%= entity.class_name%>Buttons">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="dlg<%= entity.class_name%>Selected()">确定</a> 
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg<%= entity.class_name%>').dialog('close')">取消</a>
+  </div>
+</div>
+<table id="dgDetails<%= entity.class_name %>"></table>

@@ -1,0 +1,31 @@
+<%
+  downcase_class_name = entity.class_name.gsub(/^\w/){|s| s.downcase}
+  prefix = downcase_class_name + "_"
+%><%%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<script type="text/javascript">
+function selectTab<%= entity.class_name %>(){
+  $('#dg-detials-<%= downcase_class_name %>').datagrid('loading');
+  $.post(
+    '<%= downcase_class_name %>.action?reqtype=query',
+    {'query.purchaseBatchId.likeValue' : $('#dg').datagrid('getSelected').purchaseBatchId},
+    function(data){
+      $('#dg-detials-<%= downcase_class_name %>').datagrid('loadData', data);
+      $('#dg-detials-<%= downcase_class_name %>').datagrid('loaded');
+    }, 'json'
+  );
+}
+$(function(){
+  $('#dg-detials-<%= downcase_class_name %>').datagrid({
+  //url: '<%= downcase_class_name %>.action?reqtype=query',
+  pagination: true,
+  rownumbers: true, 
+  fitColumns: true, 
+  columns: [[ <%
+      entity.properties.each_with_index(){|property, index|
+  %>
+      <%= CodeHelper.genernate_datagrid_column(property) %><%= index >= entity.properties.length-1 ? '' : ','%><%}%>
+    ]]
+  });
+});
+</script>
+<table id="dg-detials-<%= downcase_class_name %>"></table>

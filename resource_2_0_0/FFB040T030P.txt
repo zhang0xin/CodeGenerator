@@ -1,0 +1,22 @@
+key	name	comment	query	table	edit
+page	FFB040T030P	–∂∏€÷Õ∆⁄ÀŸ«≤			
+base_page	FFB040T				
+field	purchase batch id		TRUE	TRUE	
+field	unload port id		TRUE	TRUE	
+field	unload delay days			TRUE	TRUE
+field	unload delay fee			TRUE	TRUE
+field	unload delay fee unit			TRUE	
+field	unload delay fee rate			TRUE	TRUE
+field	unload transport adjust			TRUE	TRUE
+field	unload transport adjust unit			TRUE	
+field	speed delay fee			TRUE	TRUE
+field	speed delay fee unit			TRUE	
+field	ship agent		TRUE	TRUE	TRUE
+					
+					
+					
+					
+					
+					
+					
+					

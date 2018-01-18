@@ -1,0 +1,134 @@
+<%
+	downcase_class_name = entity.class_name.gsub(/^\w/){|s| s.downcase}
+	prefix = downcase_class_name + "_"
+%><%%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+
+<%%!
+void clearMap(Map<String, Boolean> map, Boolean value){
+  Iterator iterator = map.entrySet().iterator();
+  for(int i=0; i<map.size(); i++){
+    Map.Entry entry = (Map.Entry) iterator.next();
+    map.put(entry.getKey().toString(), value);
+  }
+}
+void setMap(Map<String, Boolean> map, String[] keys, Boolean value){
+  for(String key : keys) {
+    String clearKey = key.trim();
+    if (map.containsKey(clearKey)){
+      map.put(clearKey, value);
+    }
+  }
+}
+%>
+<%% 
+String eventSelectedFunction = request.getParameter("event-selected");
+
+Map<String,Boolean> queryFields = new HashMap<String,Boolean>();
+Map<String,Boolean> displayFields = new HashMap<String,Boolean>();
+<%entity.properties.each(){|property| %>
+  queryFields.put("<%=property.name%>", true);
+  displayFields.put("<%=property.name%>", true);
+<%}%>
+if (request.getParameter("dispaly-query-fields")!=null){
+  String[] paramDispalyQueryFields = request.getParameter("dispaly-query-fields").split(",");
+  clearMap(queryFields, false);
+  setMap(queryFields, paramDispalyQueryFields, true);
+}
+if (request.getParameter("hide-query-fields")!=null){
+  String[] paramHideQueryFields = request.getParameter("hide-query-fields").split(",");
+  clearMap(queryFields, true);
+  setMap(queryFields, paramHideQueryFields, false);
+}
+
+if (request.getParameter("dispaly-table-fields")!=null){
+  String[] paramDisplayTableFields = request.getParameter("display-table-fields").split(",");
+  clearMap(displayFields, false);
+  setMap(displayFields, paramDisplayTableFields, true);
+}
+if (request.getParameter("hide-table-fields")!=null){
+  String[] paramHideTableFields = request.getParameter("hide-table-fields").split(",");
+  clearMap(displayFields, true);
+  setMap(displayFields, paramHideTableFields, false);
+}
+%>
+
+<script type="text/javascript">
+function dlg_<%= downcase_class_name%>_selected(){
+  <%%=request.getParameter("event-selected")%>($('#dlg-dg-<%= downcase_class_name%>').datagrid('getSelected'));
+  $('#dlg-<%= downcase_class_name%>').dialog('close');
+}
+function dlg_<%= downcase_class_name%>_query(){
+  var queryParams = {
+  <%
+  entity.properties.each_with_index(){|property, index|
+    str_set_query_param = CodeHelper.genernate_query_param(property, prefix)
+    str_set_query_param += "," if index < entity.properties.length-1
+  %><%%if (queryFields.get("<%= property.name %>")) {%>
+    <%= str_set_query_param%>
+  <%%}%>
+  <%}%>
+  };
+  $('#dlg-dg-<%= downcase_class_name%>').datagrid('reload', queryParams);
+}
+function dlg_<%= downcase_class_name%>_reset(){
+  <%
+  entity.properties.each_with_index(){|property, index|
+    str_query_param_clear = CodeHelper.genernate_query_param_clear(property, prefix)
+  %><%= str_query_param_clear%>
+  <%}%>
+  dlg_<%= downcase_class_name%>_query()
+}
+$(function(){
+  $('#dlg-dg-<%= downcase_class_name%>').datagrid({
+    url: '<%= downcase_class_name%>.action?reqtype=query',
+    toolbar: '#dlg-<%= downcase_class_name%>-toolbar',
+    singleSelect: true,
+    selectOnCheck: false,
+    checkOnSelect: false,
+    pagination: true,
+    rownumbers: true, 
+    fitColumns: false, 
+    onDblClickRow: function(rowIndex, rowData){
+      dlg_<%= downcase_class_name%>_selected();
+    },
+    onHeaderContextMenu: function(e, field){
+      e.preventDefault();
+      if (typeof <%= downcase_class_name%>ColumnSelectMenu == 'undefined') 
+        <%= downcase_class_name%>ColumnSelectMenu = createColumnMenu($('#dlg-dg-<%= downcase_class_name%>'));
+      <%= downcase_class_name%>ColumnSelectMenu.menu('show', {left : e.pageX, top : e.pageY});
+    },
+    columns: [[
+      {field: 'f0', title : '主键', sortable: true, hidden: <%%= !displayFields.get("f0")%> }<%
+      entity.properties.each_with_index(){|property, index| 
+        next if property.name == 'f0'
+      %>
+      <%%if (queryFields.get("<%= property.name %>")) {%>
+      ,<%= CodeHelper.genernate_datagrid_column(property)%>
+      <%%}%><%}%>
+    ]]
+  });
+});
+</script>
+<div id="dlg-<%= downcase_class_name%>" class="easyui-dialog" buttons="#dlg-<%= downcase_class_name%>-buttons" title="选择" closed="true" 
+  style="width:960px;height:500px;top:60px">
+  <table id="dlg-dg-<%= downcase_class_name%>"></table>
+  <div id="dlg-<%= downcase_class_name%>-toolbar">
+    <div class="query">
+    <%
+    entity.properties.each(){|property|
+    %><%% if (queryFields.get("<%= property.name %>")) {%>
+    <%= CodeHelper.genernate_query_input(property, prefix) %>
+    <%%}%>
+    <%}%>
+      <div>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" onclick="dlg_<%= downcase_class_name%>_query()">查询</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="dlg_<%= downcase_class_name%>_reset()">重置</a>
+      </div>
+    </div>
+  </div>
+  <div id="dlg-<%= downcase_class_name%>-buttons">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="dlg_<%= downcase_class_name%>_selected()">确定</a> 
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg-<%= downcase_class_name%>').dialog('close')">取消</a>
+  </div>
+</div>
+

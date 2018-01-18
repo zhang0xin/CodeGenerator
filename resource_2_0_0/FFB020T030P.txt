@@ -1,0 +1,8 @@
+key	name	comment	query	table	edit
+page	FFB020T030P	´¬²°¶¯Ì¬			
+base_page	FFB020T				
+field	ship batch id		TRUE	TRUE	
+field	ship number		TRUE	TRUE	
+field	current location		TRUE	TRUE	TRUE
+field	arrived singapore date		TRUE	TRUE	TRUE
+field	unload date		TRUE	TRUE	TRUE

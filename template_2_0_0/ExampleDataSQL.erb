@@ -1,0 +1,12 @@
+INSERT INTO <%= table.name %>
+(
+<%table.fields.each_with_index{|field, index|%>
+<%= field.name%><%= index<table.fields.length-1 ? ',' : ''%> 
+<%}%>)
+VALUES
+(
+<%table.fields.each_with_index{|field, index|
+	example = 'this_is_example_string'
+%>
+'<%= example%>'<%= index<table.fields.length-1 ? ',' : ''%> 
+<%}%>)

@@ -1,0 +1,16 @@
+key	name	comment	query	table	edit
+page	FFB040T050P	卸港口费			
+base_page	FFB040T				
+field	port fee	港口费		TRUE	TRUE
+field	port construction fee	港口建设费		TRUE	TRUE
+field	detect fee	检测费		TRUE	TRUE
+field	inspection fee	商检费		TRUE	TRUE
+field	port agent fee	港口代理费		TRUE	TRUE
+field	sample fee	制取样费		TRUE	TRUE
+field	water gauge fee	水尺鉴定费		TRUE	TRUE
+field	boat fee	小船费		TRUE	TRUE
+field	declare agent fee	报关代理费		TRUE	TRUE
+field	declare insp agent fee	报检代理费		TRUE	TRUE
+field	declare customs agent	报关代理	TRUE	TRUE	TRUE
+field	freight agent	货运代理	TRUE	TRUE	TRUE
+field	final receiver	最终收货人	TRUE	TRUE	TRUE

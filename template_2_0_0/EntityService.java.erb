@@ -1,0 +1,27 @@
+<%
+  lowcase_class_name = entity.class_name.gsub(/^\w/) {|s| s.downcase }
+%>package com.ysusoft.service.<%= biz_name %>;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.ysusoft.DAO.<%= entity.class_name %>DAO;
+import com.ysusoft.POJO.<%= entity.class_name %>;
+import com.ysusoft.service.BaseService;
+
+public class <%= entity.class_name %>Service extends BaseService<<%= entity.class_name %>DAO, <%= entity.class_name %>>{
+	@Autowired
+	private <%= entity.class_name %>DAO <%= lowcase_class_name %>Dao;
+	
+	@Override
+	public <%= entity.class_name %>DAO getDefaultDao(){
+		return get<%= entity.class_name %>Dao();
+	}
+	
+	public <%= entity.class_name %>DAO get<%= entity.class_name %>Dao() {
+		return <%= lowcase_class_name %>Dao;
+	}
+
+	public void set<%= entity.class_name %>Dao(<%= entity.class_name %>DAO <%= lowcase_class_name %>Dao) {
+		this.<%= lowcase_class_name %>Dao = <%= lowcase_class_name %>Dao;
+	}
+}

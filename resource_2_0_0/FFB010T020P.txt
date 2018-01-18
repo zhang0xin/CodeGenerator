@@ -1,0 +1,26 @@
+key	name	comment	query	table	edit
+page	FFB010T020P	½áËã»õ¿î			
+base_page	FFB010T				
+field	purchase batch id		TRUE	TRUE	
+field	trade type		TRUE	TRUE	
+field	ore area		TRUE	TRUE	
+field	material category		TRUE	TRUE	
+field	material id		TRUE	TRUE	
+field	settlement price			TRUE	TRUE
+field	single ship settlement price			TRUE	TRUE
+field	settlement start date		TRUE	TRUE	TRUE
+field	settlement quantity			TRUE	TRUE
+field	lc first fee			TRUE	TRUE
+field	future accrual			TRUE	TRUE
+field	first pay date		TRUE	TRUE	TRUE
+field	first issue date		TRUE	TRUE	TRUE
+field	first dry quantity			TRUE	TRUE
+field	company first fee			TRUE	TRUE
+field	transport equalize			TRUE	TRUE
+field	second pay date		TRUE	TRUE	TRUE
+field	settlement tail fee			TRUE	TRUE
+field	tail fee date			TRUE	TRUE
+field	gauge discount			TRUE	TRUE
+field	settlement assessment cycle			TRUE	TRUE
+field	drain transport equalize			TRUE	TRUE
+field	remarks		TRUE	TRUE	TRUE

@@ -1,0 +1,10 @@
+key	name	comment	query	table	edit
+page	FFB010T030P	±£œ’			
+base_page	FFB010T				
+field	purchase batch id		TRUE	TRUE	
+field	trade type		TRUE	TRUE	
+field	ore area		TRUE	TRUE	
+field	material category		TRUE	TRUE	
+field	material id		TRUE	TRUE	
+field	insurance company		TRUE	TRUE	TRUE
+field	insurance fee			TRUE	TRUE

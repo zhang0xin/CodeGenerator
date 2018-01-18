@@ -1,0 +1,27 @@
+key	name	type	type_length	comment	long_comment	category	range	range_code	reference	details	tags
+table	FFB060T			合同							
+id	f0	string	36	主键							
+field	contract number	string	36	合同号						FFB010T	
+field	contract sign	string	36	国内合同签订方			"河北钢铁集团,北京冀钢联公司,北京国贸公司"				
+field	contract nature	string	20	合同性质			"销售合同,代理合同"				
+field	contract quantity	number	"20,5"	合同量							
+field	contract money	number	"20,2"	合同金额							has_unit
+field	contract money unit	string	10	合同金额币种				2003			
+field	unit	string	10	计量单位	"干吨,湿吨"		"干吨,湿吨"				
+field	mine	string	36	矿山							
+field	material id	string	36	物料名称							
+field	trade type	string	20	贸易类型			"长期协议矿,远期现货矿,即期现货矿"				
+field	purchase price mode	string	20	北京采购定价模式							
+field	sale price mode	string	20	北京销售定价模式							
+field	seller	string	30	卖方							
+field	final user	string	30	最终用户							
+field	load date start	date		装期（始）							
+field	load date end	date		装期（终）							
+field	exercise date	date		合同执行完毕日							
+field	exercise description	string	300	合同执行情况说明							
+field	sign date	date		签订日期							
+field	create by	string	30	创建人							
+field	create date	datetime		创建日期							
+field	update by	string	30	更新人							
+field	update date	datetime		更新日期							
+field	archived	string	10	归档			"已归档,未归档"				

@@ -1,0 +1,11 @@
+key	name	comment	query	table	edit
+page	FFB030T010P	Ð¶¸Û			
+base_page	FFB030T				
+field	unload port id		TRUE	TRUE	TRUE
+field	unload port		TRUE	TRUE	TRUE
+field	ship batch id		TRUE	TRUE	TRUE
+field	arrived port date		TRUE	TRUE	TRUE
+field	berth date		TRUE	TRUE	TRUE
+field	unloaded date		TRUE	TRUE	TRUE
+field	depart port date		TRUE	TRUE	TRUE
+field	final receiver		TRUE	TRUE	TRUE

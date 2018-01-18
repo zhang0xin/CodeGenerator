@@ -1,0 +1,16 @@
+key	name	type	type_length	comment	long_comment	category	range	range_code	reference	details	tags
+table	FFB012T			审核记录							
+id	f0	string	36	主键							
+field	biz id	string	36	业务id							
+field	audit order	string	2	审批序号							
+field	audit suggestion	string	500	审批意见							
+field	audit duty	string	36	审批职务							
+field	flow id	string	36	审批流程id							
+field	audit pass	string	10	审批状态							
+field	audit man	string	36	审批人							
+field	audit date	datetime		审批时间							
+field	create by	string	30	创建人							
+field	create date	datetime		创建日期							
+field	update by	string	30	更新人							
+field	update date	datetime		更新日期							
+field	archived	string	10	归档			"已归档,未归档"				

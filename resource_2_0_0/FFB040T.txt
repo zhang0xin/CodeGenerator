@@ -1,0 +1,77 @@
+key	name	type	type_length	comment	long_comment	category	range	range_code	reference	details	tags
+table	FFB040T			品质							
+id	f0	string	36	主键							
+field	purchase batch id	string	36	采购批次		品质			FFB010T		
+field	unload port id	string	36	卸港批次	装港品质对应的卸港ID为空	品质			FFB030T		
+field	TFe 	string	20	TFe 		品质					
+field	SiO2 	string	20	SiO2 		品质					
+field	CaO 	string	20	CaO 		品质					
+field	MgO 	string	20	MgO 		品质					
+field	Al2O3 	string	20	Al2O3 		品质					
+field	SiO2 Al2O3	string	20	SiO2+Al2O3		品质					
+field	TiO2 	string	20	TiO2 		品质					
+field	K2O 	string	20	K2O 		品质					
+field	Na2O 	string	20	Na2O 		品质					
+field	ZnO 	string	20	ZnO 		品质					
+field	As 	string	20	As 		品质					
+field	PbO	string	20	PbO		品质					
+field	Cr 	string	20	Cr 		品质					
+field	Ni 	string	20	Ni 		品质					
+field	Cu 	string	20	Cu 		品质					
+field	Mn 	string	20	Mn 		品质					
+field	H2O 	string	20	H2O 		品质					
+field	FeO 	string	20	FeO 		品质					
+field	P 	string	20	P 		品质					
+field	S	string	20	S		品质					
+field	burn lose 	string	20	烧损 		品质					
+field	wet weight	string	20	湿量		品质					
+field	grain size	string	500	粒度		品质					
+field	remark	string	500	备注		品质					
+field	create by	string	30	创建人		品质					
+field	create date	datetime		创建日期		品质					
+field	update by	string	30	更新人		品质					
+field	update date	datetime		更新日期		品质					
+field	archived	string	10	归档		品质	已归档,未归档				
+field	port fee	number	20,2	港口费		卸港口费					
+field	port construction fee	number	20,2	港口建设费		卸港口费					
+field	detect fee	number	20,2	检测费		卸港口费					
+field	inspection fee	number	20,2	商检费		卸港口费					
+field	port agent fee	number	20,2	港口代理费		卸港口费					
+field	sample fee	number	20,2	制取样费		卸港口费					
+field	water gauge fee	number	20,2	水尺鉴定费		卸港口费					
+field	boat fee	number	20,2	小船费		卸港口费					
+field	declare agent fee	number	20,2	报关代理费		卸港口费					
+field	declare insp agent fee	number	20,2	报检代理费		卸港口费					
+field	declare customs agent	string	50	报关代理		卸港口费		6005			
+field	freight agent	string	50	货运代理		卸港口费		6004			
+field	final receiver	string	10	最终收货人		卸港口费					
+field	ffb040t050p archived	string	10	归档		卸港口费	已归档,未归档				
+field	unload delay days	number	20,5	卸港滞期天数		卸港滞期速遣					
+field	unload delay fee	number	20,2	卸港对卖方滞速费		卸港滞期速遣					has_unit
+field	unload delay fee unit	string	10	卸港对卖方滞速费币种		卸港滞期速遣		2003			
+field	unload delay fee rate	number	20,5	卸港滞速费率		卸港滞期速遣					
+field	unload transport adjust	number	20,2	CFR卸港运费调整		卸港滞期速遣					has_unit
+field	unload transport adjust unit	string	10	CFR卸港运费调整币种		卸港滞期速遣		2003			
+field	speed delay fee	number	20,2	卸港与船公司滞速费		卸港滞期速遣					has_unit
+field	speed delay fee unit	string	10	卸港与船公司滞速费币种		卸港滞期速遣		2003			
+field	ship agent	string	30	船代		卸港滞期速遣		6002			
+field	ffb040t030p archived	string	10	归档		卸港滞期速遣	已归档,未归档				
+field	goods agent	string	30	货代		报关报检		6004			
+field	declare customs company	string	30	报关单位		报关报检		6005			
+field	deposit fee	number	20,2	保证金		报关报检					has_unit
+field	deposit fee unit	string	10	保证金币种		报关报检		2003			
+field	declare customs	string	30	报关海关		报关报检		6006			
+field	customs clearance last date	date		最晚结关日		报关报检					
+field	customs clearance actual date	date		实际结关日		报关报检					
+field	SAFE declar	string	30	外管局申报		报关报检					
+field	declare customs date	date		首次报关日期		报关报检					
+field	declare customs bill	string	30	报关单号		报关报检					
+field	customs clearance state	string	20	结关状态		报关报检					
+field	declare customs fee	number	20,2	首次报关金额		报关报检					has_unit
+field	declare customs fee unit	string	10	首次报关金额币种		报关报检		2003			
+field	license number	string	30	许可证号		报关报检					
+field	value added tax	number	20,2	海关征收增值税		报关报检					has_unit
+field	value added tax unit	string	10	海关征收增值税币种		报关报检		2003			
+field	customs tax equalize	number	20,2	海关补税金额		报关报检					has_unit
+field	customs tax equalize unit	string	10	海关补税金额币种		报关报检		2003			
+field	ffb040t040p archived	string	10	归档		报关报检	已归档,未归档				

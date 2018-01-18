@@ -1,0 +1,49 @@
+<%
+ignore_props = ['f0', 'createBy', 'createDate', 'updateBy', 'updateDate']
+%>package com.ysusoft.frame.<%= biz_name%>;
+
+import com.ysusoft.annotations.Comment;
+
+@Comment("<%= entity.class_comment %>")
+public class <%= entity.class_name %>Frame<TLong, TDecimal, TString, TDate> extends BaseFrame {
+  <%entity.properties.each_with_index(){|property, index| 
+    next if ignore_props.include?(property.name)
+  %>
+  @Comment("<%= entity.properties[index].comment %>")
+  private <%= property.generic_type%> <%= property.name%>;
+  <%}%>
+
+  public <%= entity.class_name %>Frame() {
+  }
+
+  <%entity.properties.each(){|property| 
+    next if ignore_props.include?(property.name)
+    upcase_porp = property.name.gsub(/^\w/) {|s| s.upcase }
+  %>
+  public <%= property.generic_type %> get<%= upcase_porp %>() {
+    return this.<%= property.name %>;
+  }
+  public void set<%= upcase_porp %>(<%= property.generic_type %> <%= property.name %>) {
+    this.<%= property.name%> = <%= property.name%>;
+  }
+  <%
+    next if property.type != 'currency'
+  %>
+  @SuppressWarnings("unchecked")
+  public <%= property.generic_type %> get<%= upcase_porp %>Value() {
+    return (TString)getFeeValue((String)get<%= upcase_porp %>());
+  }
+  @SuppressWarnings("unchecked")
+  public void set<%= upcase_porp %>Value(<%= property.generic_type %> value) {
+    set<%= upcase_porp %>((TString)changeFeeValue((String)get<%= upcase_porp %>(), (String)value));
+  }
+  @SuppressWarnings("unchecked")
+  public <%= property.generic_type %> get<%= upcase_porp %>CurrencyType() {
+    return (TString)getFeeCurrencyType((String)get<%= upcase_porp %>());
+  }
+  @SuppressWarnings("unchecked")
+  public void set<%= upcase_porp %>CurrencyType(<%= property.generic_type %> currencyType) {
+    set<%= upcase_porp %>((TString)changeFeeCurrencyType((String)get<%= upcase_porp %>(), (String)currencyType));
+  }
+  <%}%>
+}

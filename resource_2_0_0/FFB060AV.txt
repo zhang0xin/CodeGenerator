@@ -1,0 +1,4 @@
+key	name	type	type_length	comment	long_comment	range	ref_table	tags
+table	FFB060AV			合同可见部门				
+field	contract number	string	36	合同号				
+field	visible department	string	30	可见部门				

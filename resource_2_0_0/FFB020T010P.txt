@@ -1,0 +1,12 @@
+key	name	comment	query	table	edit
+page	FFB020T010P	×°¸Û			
+base_page	FFB020T				
+field	ship batch id		TRUE	TRUE	TRUE
+field	ship number		TRUE	TRUE	TRUE
+field	port load name		TRUE	TRUE	TRUE
+field	port load ship agent		TRUE	TRUE	TRUE
+field	seller delay days		TRUE	TRUE	TRUE
+field	seller delay fee			TRUE	TRUE
+field	port load delay fee			TRUE	TRUE
+field	port load start date		TRUE	TRUE	TRUE
+field	port load end date		TRUE	TRUE	TRUE

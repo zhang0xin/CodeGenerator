@@ -1,0 +1,13 @@
+key	name	type	type_length	comment	long_comment	category	range	reference	details	tags
+table	FFB050T			船舶						
+id	f0	string	36	主键						
+field	ship number	string	36	船编号						
+field	ship company	string	30	船运公司						
+field	ship owner	string	30	船舶所属						
+field	ship name	string	30	英文船名						
+field	ship chinese name	string	30	中文船名						
+field	create by	string	30	创建人						
+field	create date	datetime		创建日期						
+field	update by	string	30	更新人						
+field	update date	datetime		更新日期						
+field	archived	string	10	归档			"已归档,未归档"			

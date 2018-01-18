@@ -1,0 +1,12 @@
+key	name	comment	query	table	edit
+page	FFB010T040P	信用证（财）			
+base_page	FFB010T				
+field	lc number		TRUE	TRUE	
+field	purchase batch id		TRUE	TRUE	
+field	documentary bills interest			TRUE	TRUE
+field	documentary bills hike			TRUE	TRUE
+field	capital occupation fee			TRUE	TRUE
+field	opening charge			TRUE	TRUE
+field	accepting charge			TRUE	TRUE
+field	customs guarantee fee			TRUE	TRUE
+field	agent service fee			TRUE	TRUE

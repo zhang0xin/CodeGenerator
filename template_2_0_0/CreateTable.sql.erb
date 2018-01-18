@@ -1,0 +1,12 @@
+CREATE TABLE <%= table.name %>
+(
+<%table.fields.each_with_index{|field, index|%>
+<%= field.name%> <%= field.get_full_type() %> <%= field.is_key ? 'PRIMARY KEY' : '' %><%= index<table.fields.length-1 ? ',' : ''%>
+<%}%>
+);
+COMMIT;
+
+COMMENT ON TABLE <%= table.name %> IS '<%= table.comment %>';
+<%table.fields.each{|field|%>
+COMMENT ON COLUMN <%= table.name %>.<%= field.name%> IS '<%= field.comment %>';
+<%}%>

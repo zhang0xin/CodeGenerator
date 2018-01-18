@@ -1,0 +1,50 @@
+declare 
+  tableExistedCount number;
+  columnExistedCount number;
+
+begin
+  select count(1) into tableExistedCount  from user_tables t where t.table_name = upper('<%= table.name %>');
+  if tableExistedCount  = 0 then
+    execute immediate
+'
+CREATE TABLE <%= table.name %>
+(
+<%table.fields.each_with_index{|field, index|%>
+<%= field.name%> <%= field.get_full_type() %> <%= field.is_key ? 'PRIMARY KEY' : '' %><%= index<table.fields.length-1 ? ',' : ''%>
+<%}%>
+)';
+    execute immediate
+'
+COMMENT ON TABLE <%= table.name %> IS ''<%= table.comment %>''
+';
+<%table.fields.each{|field|%>
+    execute immediate
+'
+COMMENT ON COLUMN <%= table.name %>.<%= field.name%> IS ''<%= field.comment %>''
+';
+<%}%>
+  else
+    <%table.fields.each_with_index{|field, index|%>
+    select count(1) into columnExistedCount from user_tab_columns t where t.table_name = upper('<%= table.name %>')  and t.column_name = upper('<%= field.name%>');   
+    if columnExistedCount = 0 then
+      execute immediate
+'
+ALTER TABLE <%= table.name %> ADD (<%= field.name%> <%= field.get_full_type() %>)
+';
+      execute immediate
+'
+COMMENT ON COLUMN <%= table.name %>.<%= field.name%> IS ''<%= field.comment %>''
+';
+    else
+      execute immediate
+'
+ALTER TABLE <%= table.name %> MODIFY (<%= field.name%> <%= field.get_full_type() %>)
+';
+      execute immediate
+'
+COMMENT ON COLUMN <%= table.name %>.<%= field.name%> IS ''<%= field.comment %>''
+';
+    end if;
+    <%}%>
+  end if;
+end;

@@ -1,0 +1,4 @@
+key	name	type	type_length	comment	long_comment	range	ref_table	tags
+table	FFB020AV			船运可见部门				
+field	ship batch id	string	36	船运批次				
+field	visible department	string	30	可见部门				

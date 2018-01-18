@@ -1,0 +1,5 @@
+<%table.fields.each_with_index{|field, index|%>
+ALTER TABLE <%= table.name %> ADD (<%= field.name%> <%= field.get_full_type() %>);
+COMMENT ON COLUMN <%= table.name %>.<%= field.name%> IS '<%= field.comment %>';
+
+<%}%>
