@@ -1,3 +1,4 @@
+﻿#encoding:utf-8
 class Table
   attr_accessor :fields, :name, :comment
   

@@ -1,3 +1,4 @@
+﻿#encoding:utf-8
 class TypeConvertor
   @@java_types = Hash[
     'string' => 'java.lang.String',

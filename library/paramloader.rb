@@ -1,4 +1,5 @@
-﻿require File.join(File.dirname(__FILE__),'hashobject')
+﻿#encoding:utf-8
+require File.join(File.dirname(__FILE__),'hashobject')
 require File.join(File.dirname(__FILE__),'table')
 require File.join(File.dirname(__FILE__),'entity')
 require File.join(File.dirname(__FILE__),'page')

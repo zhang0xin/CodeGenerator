@@ -1,3 +1,4 @@
+﻿#encoding:utf-8
 class Entity
   attr_accessor :class_name, :class_comment, :properties
   

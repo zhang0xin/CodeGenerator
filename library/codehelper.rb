@@ -1,4 +1,4 @@
-#encoding:gbk
+Ôªø#encoding:utf-8
 class CodeHelper
   def self.genernate_datagrid_column(property)
     str_column = ""
@@ -10,7 +10,7 @@ class CodeHelper
       str_column = "{field: '#{property.name}', title : '#{property.comment}', sortable: true, formatter: datetimeFormatter }#{str_visible}"
     elsif property.type == 'currency' then
       str_column = "{field: '#{property.name}Value', title : '#{property.comment}', sortable: true }#{str_visible},"
-      str_column += "{field: '#{property.name}CurrencyType', title : '#{property.comment}±“÷÷', sortable: true, formatter : function(value, row) {return currencyTypeDict[value];} }#{str_visible}"
+      str_column += "{field: '#{property.name}CurrencyType', title : '#{property.comment}Â∏ÅÁßç', sortable: true, formatter : function(value, row) {return currencyTypeDict[value];} }#{str_visible}"
     else
       str_column = "{field: '#{property.name}', title : '#{property.comment}', sortable: true#{str_visible} }"
     end
@@ -72,23 +72,23 @@ class CodeHelper
     if property.range.size != 0 then
       str_data = "{label: '',value: '&nbsp;'}"
       property.range.each(){|item| str_data += ", {label: '#{item}',value: '#{item}'}" }
-      str_query_input = "<label>#{property.comment}£∫<input id='#{prefix}query_#{property.name}' class='easyui-combobox' data-options=\"valueField: 'label', textField: 'value', data: [#{str_data}]\" /></label>"
+      str_query_input = "<label>#{property.comment}Ôºö<input id='#{prefix}query_#{property.name}' class='easyui-combobox' data-options=\"valueField: 'label', textField: 'value', data: [#{str_data}]\" /></label>"
     elsif property.type == 'string' or property.type == 'currency' then
-      str_query_input = "<label>#{property.comment}£∫<input id='#{prefix}query_#{property.name}' class='easyui-textbox' data-options='' /></label>"
+      str_query_input = "<label>#{property.comment}Ôºö<input id='#{prefix}query_#{property.name}' class='easyui-textbox' data-options='' /></label>"
     elsif property.type == 'number' or property.type == 'digits' then
-      str_query_input = "<label>#{property.comment}£∫<input id='#{prefix}query_#{property.name}' class='easyui-textbox' data-options='' /></label>"
+      str_query_input = "<label>#{property.comment}Ôºö<input id='#{prefix}query_#{property.name}' class='easyui-textbox' data-options='' /></label>"
     elsif property.type == 'date' then
-      str_query_input = "<label>#{property.comment}£∫<input id='#{prefix}query_min_#{property.name}' class='query-datebox easyui-datebox' />µΩ"
+      str_query_input = "<label>#{property.comment}Ôºö<input id='#{prefix}query_min_#{property.name}' class='query-datebox easyui-datebox' />Âà∞"
       str_query_input += "<input id='#{prefix}query_max_#{property.name}' class='query-datebox easyui-datebox' /></label>"
     elsif property.type == 'datetime' then
-      str_query_input = "<label>#{property.comment}£∫<input id='#{prefix}query_min_#{property.name}' class='query-datebox easyui-datetimebox' />µΩ"
+      str_query_input = "<label>#{property.comment}Ôºö<input id='#{prefix}query_min_#{property.name}' class='query-datebox easyui-datetimebox' />Âà∞"
       str_query_input += "<input id='#{prefix}query_max_#{property.name}' class='query-datebox easyui-datetimebox' /></label>"
     end
     return str_query_input
   end
   
   def self.genernate_view_item(property, prefix='')
-    "<label>#{property.comment}£∫<span id='#{prefix}#{property.name}' class='field-text'>&nbsp;</span></label>"
+    "<label>#{property.comment}Ôºö<span id='#{prefix}#{property.name}' class='field-text'>&nbsp;</span></label>"
   end
   
   def self.genernate_form_input(property, attributes='')
@@ -96,22 +96,22 @@ class CodeHelper
     if property.range.size != 0 then
       str_data = "{label: '&nbsp;',value: ''}"
       property.range.each(){|item| str_data += ", {label: '#{item}',value: '#{item}'}" }
-      str_form_input = "<label>#{property.comment}£∫<input id='#{property.name}' name='entity.#{property.name}' class='easyui-combobox' data-options=\"valueField: 'value', textField: 'label', data: [#{str_data}]\" #{attributes}/></label>"
+      str_form_input = "<label>#{property.comment}Ôºö<input id='#{property.name}' name='entity.#{property.name}' class='easyui-combobox' data-options=\"valueField: 'value', textField: 'label', data: [#{str_data}]\" #{attributes}/></label>"
     elsif property.type == 'currency' then 
-      str_form_input = "<label>#{property.comment}£∫<span class='pair'>
+      str_form_input = "<label>#{property.comment}Ôºö<span class='pair'>
           <input id='#{property.name}Value' style='width: 65%;' name='entity.#{property.name}Value' class='easyui-numberbox easyui-textbox' data-options='precision:3' #{attributes}
           /><input id='#{property.name}CurrencyType' style='width: 35%;' name='entity.#{property.name}CurrencyType' class='easyui-combobox' url= 'zaa010t.action?req.type=getListOnCategory&category=2003' valueField= 'fminCd' textField= 'fcdNm' #{attributes}/>
           </span></label>"
     elsif property.type == 'string' then
-      str_form_input = "<label>#{property.comment}£∫<input id='#{property.name}' name='entity.#{property.name}' class='easyui-validatebox easyui-textbox' data-options=\"validType:'length[0,#{property.type_length}]'\" #{attributes}/></label>"
+      str_form_input = "<label>#{property.comment}Ôºö<input id='#{property.name}' name='entity.#{property.name}' class='easyui-validatebox easyui-textbox' data-options=\"validType:'length[0,#{property.type_length}]'\" #{attributes}/></label>"
     elsif property.type == 'number' then
-      str_form_input = "<label>#{property.comment}£∫<input id='#{property.name}' name='entity.#{property.name}' class='easyui-numberbox easyui-textbox' data-options='precision:#{property.get_precision_length()}' #{attributes}/></label>"
+      str_form_input = "<label>#{property.comment}Ôºö<input id='#{property.name}' name='entity.#{property.name}' class='easyui-numberbox easyui-textbox' data-options='precision:#{property.get_precision_length()}' #{attributes}/></label>"
     elsif property.type == 'digits' then
-      str_form_input = "<label>#{property.comment}£∫<input id='#{property.name}' name='entity.#{property.name}' class='easyui-numberbox easyui-textbox' data-options='precision:0' #{attributes}/></label>"
+      str_form_input = "<label>#{property.comment}Ôºö<input id='#{property.name}' name='entity.#{property.name}' class='easyui-numberbox easyui-textbox' data-options='precision:0' #{attributes}/></label>"
     elsif property.type == 'date' then
-      str_form_input = "<label>#{property.comment}£∫<input id='#{property.name}' name='entity.#{property.name}' class='easyui-validatebox easyui-datebox' data-options='' #{attributes}/></label>"
+      str_form_input = "<label>#{property.comment}Ôºö<input id='#{property.name}' name='entity.#{property.name}' class='easyui-validatebox easyui-datebox' data-options='' #{attributes}/></label>"
     elsif property.type == 'datetime' then
-      str_form_input = "<label>#{property.comment}£∫<input id='#{property.name}' name='entity.#{property.name}' class='easyui-validatebox easyui-datetimebox' data-options='' #{attributes}/></label>"
+      str_form_input = "<label>#{property.comment}Ôºö<input id='#{property.name}' name='entity.#{property.name}' class='easyui-validatebox easyui-datetimebox' data-options='' #{attributes}/></label>"
     end
     return str_form_input
   end

@@ -1,3 +1,4 @@
+﻿#encoding:utf-8
 class Page
   attr_accessor :page_name, :page_comment, :class_name, :class_comment, :input_items
   

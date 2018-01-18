@@ -1,3 +1,4 @@
+﻿#encoding:utf-8
 class NameFormatter
   def lower_camel_case(original_str)
     return original_str.to_s.downcase.gsub(/\s\w/) {|s| s.upcase.lstrip }

@@ -1,21 +1,22 @@
+ï»¿#encoding:utf-8
 class HashObject
   def initialize
     @props = Hash.new
   end
   def method_missing(method, *args, &block)
-    #Èç¹ûÎªÊı×ÖË÷Òı×ª»»Îª×Ö·û´®
+    #å¦‚æœä¸ºæ•°å­—ç´¢å¼•è½¬æ¢ä¸ºå­—ç¬¦ä¸²
     args[0] = args[0].to_s if (method == :[] or method == :[]=) && args[0].is_a?(Integer)
 
-    # ×ÖµäµÄ[], []= ·½·¨
+    # å­—å…¸çš„[], []= æ–¹æ³•
     return @props.send method, *args, &block if method == :[] or method == :[]=
-    # ×ÖµäµÄeach, each_key·½·¨
+    # å­—å…¸çš„each, each_keyæ–¹æ³•
     return @props.send method, *args, &block if [:each, :each_key, :each_value, :each_pair].include? method 
     
-    # Ó³ÉäÊôĞÔ_1µ½['1'], ['1']= ·½·¨
+    # æ˜ å°„å±æ€§_1åˆ°['1'], ['1']= æ–¹æ³•
     return @props[method.to_s.split('=').first.split('_').last] = args[0] if method.to_s =~ /_+\d+\=/
     return @props[method.to_s.split('_').last] if method.to_s =~ /_+\d+/
     
-    # Ó³ÉäÊôĞÔµ½[], []=·½·¨
+    # æ˜ å°„å±æ€§åˆ°[], []=æ–¹æ³•
     return @props[method.to_s.split('=').first] = args[0] if method.to_s =~ /_*\w+\=/
     return @props[method.to_s] if method.to_s =~ /_*\w+/
     
