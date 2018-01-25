@@ -15,7 +15,7 @@ class TestHastable < Test::Unit::TestCase
      hobj.arr1 = [1, 2, 3]
      assert_equal [1, 2, 3], hobj.arr1
 
-     hobj.child('iobj').iprop0 = 'iprop0 value'
+     hobj.object('iobj').iprop0 = 'iprop0 value'
      assert_equal 'iprop0 value', hobj.iobj.iprop0
      hobj.iobj.iprop1 = 'inner prop1'
      assert_equal 'inner prop1', hobj.iobj.iprop1
