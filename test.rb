@@ -1,2 +1,4 @@
 ﻿#encoding:utf-8
-puts '试试' 
+require_relative 'library/paramconvertor'
+c = ParamConvertor.new
+c.get_table_define 'tgacdxj', 'tgacdxj', 'tgacetm'
